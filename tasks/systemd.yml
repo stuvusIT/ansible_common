@@ -1,0 +1,6 @@
+---
+- copy:
+    src: unit-failed@.service
+    dest: /etc/systemd/system/unit-failed@.service
+  notify:
+    - Reload systemd

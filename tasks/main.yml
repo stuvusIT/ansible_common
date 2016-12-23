@@ -1,2 +1,3 @@
 ---
 - include: common_packages.yml
+- include: systemd.yml
