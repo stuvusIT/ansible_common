@@ -1,8 +1,34 @@
 ---
-- name: Install common packages
-  when: ansible_os_family=="Debian"
+- name: Install common packages @Debian
   apt:
-      name:
-          - vim-nox
-          - git
-          - ctags
+    name:
+      - vim-nox
+      - git
+      - ctags
+      - sudo
+      - zsh
+  when: ansible_os_family=="Debian"
+
+- name: Install common packages @FreeBSD
+  pkgng:
+    name:
+      - sudo
+      - vim-lite
+      - git
+    state: present
+  when: ansible_os_family=="FreeBSD"
+
+- name: Install common packages @Gentoo
+  portage:
+    sync: yes
+    package: "{{ item }}"
+    state: present
+    update: yes
+  with_items:
+    - "app-editors/vim"
+    - "app-admin/sudo"
+    - "dev-util/ctags"
+    - "dev-vcs/git"
+    - "app-shells/zsh"
+  when: ansible_os_family=="Gentoo"
+
