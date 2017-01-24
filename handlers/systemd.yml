@@ -1,4 +1,4 @@
 ---
 - name: Reload systemd
   command:
-      systemctl damon-reload
+      systemctl daemon-reload
