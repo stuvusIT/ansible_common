@@ -1,6 +1,7 @@
 ---
 - name: Install common packages @Debian
   apt:
+    update_cache: yes
     name:
       - vim-nox
       - git
