@@ -31,7 +31,7 @@
   with_dict: "{{ admins }}"
   when: ansible_os_family == "FreeBSD"
 
-- name: Update ssh keys
+- name: Update ssh keys for users
   authorized_key:
     exclusive: yes
     key: "{{ item.value.key }}"
@@ -39,6 +39,14 @@
     user: "{{ item.key }}"
     validate_certs: yes
   with_dict: "{{ admins }}"
+
+- name: Update ssh keys for root
+  authorized_key:
+    exclusive: yes
+    key: "{% for user in admins %}{{ admins[user]['key'] }}\n{% endfor %}"
+    state: present
+    user: "root"
+    validate_certs: yes
 
 - name: Grant all admin users root privilages
   lineinfile:
