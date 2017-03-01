@@ -34,16 +34,16 @@
 - name: Update ssh keys for users
   authorized_key:
     exclusive: yes
-    key: "{{ item.value.key }}"
+    key: "{% for key in admins[item]['keys'] %}{{ key }}\n{% endfor %}"
     state: present
-    user: "{{ item.key }}"
+    user: "{{ item }}"
     validate_certs: yes
-  with_dict: "{{ admins }}"
+  with_items: "{{ admins }}"
 
 - name: Update ssh keys for root
   authorized_key:
     exclusive: yes
-    key: "{% for user in admins %}{{ admins[user]['key'] }}\n{% endfor %}"
+    key: "{% for user in admins %}{% for key in admins[user]['keys'] %}{{ key }}\n{% endfor %}{% endfor %}"
     state: present
     user: "root"
     validate_certs: yes
