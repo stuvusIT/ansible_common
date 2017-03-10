@@ -16,20 +16,6 @@
     shell: "{{ item.value.shell|default('/bin/bash') }}"
     password: "{{ item.value.passwd|default('$6$mDFWEb5pDY$C9ZTuNjTTSyh0uIBoZALAV6isFY4dO8gBN2/xJ0yX2rejvr2wKp/wMmHwvoC.gD8NaeozxjhWvNHp3rJEJdJj1') }}"
   with_dict: "{{ admins }}"
-  when: ansible_os_family != "FreeBSD"
-
-- name: Create admin users @FreeBSD
-  user:
-    comment: "{{ item.value.name }}"
-    createhome: yes
-    groups: wheel,admins
-    state: present
-    system: no
-    name: "{{ item.key }}"
-    shell: "/usr/local/bin/bash"
-    password: "{{ item.value.passwd|default('$6$mDFWEb5pDY$C9ZTuNjTTSyh0uIBoZALAV6isFY4dO8gBN2/xJ0yX2rejvr2wKp/wMmHwvoC.gD8NaeozxjhWvNHp3rJEJdJj1') }}"
-  with_dict: "{{ admins }}"
-  when: ansible_os_family == "FreeBSD"
 
 - name: Update ssh keys for users
   authorized_key:
@@ -59,17 +45,3 @@
     owner: root
     group: root
     state: present
-  when: ansible_os_family != "FreeBSD"
-
-- name: Grant all admin users root privilages @FreeBSD
-  lineinfile:
-    create: yes
-    dest: /usr/local/etc/sudoers
-    regexp: '^%wheel\s'
-    insertafter: 'Same thing without a password'
-    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
-    mode: 0400
-    owner: root
-    group: wheel
-    state: present
-  when: ansible_os_family == "FreeBSD"

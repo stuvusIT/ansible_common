@@ -10,15 +10,6 @@
       - zsh
   when: ansible_os_family=="Debian"
 
-- name: Install common packages @FreeBSD
-  pkgng:
-    name:
-      - sudo
-      - vim-lite
-      - git
-    state: present
-  when: ansible_os_family=="FreeBSD"
-
 - name: Install common packages @Gentoo
   portage:
     sync: yes
