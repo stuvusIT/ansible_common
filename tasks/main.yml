@@ -1,4 +1,3 @@
 ---
 - include: common_packages.yml
 - include: users.yml
-- include: systemd.yml
