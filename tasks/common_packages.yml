@@ -7,7 +7,7 @@
       - ctags
       - sudo
       - zsh
-  when: ansible_os_family=="Debian"
+  when: ansible_os_family == "Debian"
 
 - name: Install common packages @FreeBSD
   pkgng:
@@ -23,12 +23,12 @@
     sync: yes
     package: "{{ item }}"
     state: present
-    update: yes
+    update: true
   with_items:
     - "app-editors/vim"
     - "app-admin/sudo"
     - "dev-util/ctags"
     - "dev-vcs/git"
     - "app-shells/zsh"
-  when: ansible_os_family=="Gentoo"
+  when: ansible_os_family == "Gentoo"
 

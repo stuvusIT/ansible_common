@@ -3,12 +3,12 @@
   group:
     name: wheel
     state: present
-    system: yes
+    system: true
 
 - name: Create admin users
   user:
     comment: "{{ item.value.name }}"
-    createhome: yes
+    createhome: true
     groups: dialout,users,wheel
     state: present
     system: no
@@ -33,24 +33,24 @@
 
 - name: Update ssh keys for users
   authorized_key:
-    exclusive: yes
+    exclusive: true
     key: "{% for key in admins[item]['keys'] %}{{ key }}\n{% endfor %}"
     state: present
     user: "{{ item }}"
-    validate_certs: yes
+    validate_certs: true
   with_items: "{{ admins }}"
 
 - name: Update ssh keys for root
   authorized_key:
-    exclusive: yes
+    exclusive: true
     key: "{% for user in admins %}{% for key in admins[user]['keys'] %}{{ key }}\n{% endfor %}{% endfor %}"
     state: present
     user: "root"
-    validate_certs: yes
+    validate_certs: true
 
 - name: Grant all admin users root privilages
   lineinfile:
-    create: yes
+    create: true
     dest: /etc/sudoers
     regexp: '^%wheel\s'
     insertafter: 'Same thing without a password'
