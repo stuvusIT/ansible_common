@@ -17,9 +17,6 @@ admins:
 	  ...
 	passwd: <hashed passphrase> #optional set password for user, passphrase needs to be hashed (for more information see: http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module)
 ```
-**WARNING:** `letsencrypt_email` **is required, if not specified no certificates are requested and deployed!!!**
-
-Default values are specified [here](defaults/main.yml) (except auth, which is specified by template file).
 
 ## Dependencies
 
