@@ -5,11 +5,16 @@
     state: present
     system: true
 
+- name: Make sure SSH group is present
+  group:
+    name: ssh-users
+    system: true
+
 - name: Create admin users
   user:
     comment: "{{ item.value.name }}"
     createhome: true
-    groups: dialout,users,wheel
+    groups: dialout,users,wheel,ssh-users
     state: present
     system: no
     name: "{{ item.key }}"
