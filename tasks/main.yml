@@ -1,5 +1,7 @@
 ---
 - include: common_packages.yml
 - include: users.yml
+- include: ssh.yml
+  when: ansible_os_family != "FreeBSD"
 - include: systemd.yml
   when: ansible_service_mgr == "systemd"
