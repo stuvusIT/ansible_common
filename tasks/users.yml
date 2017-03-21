@@ -45,14 +45,6 @@
     validate_certs: true
   with_items: "{{ admins }}"
 
-- name: Update ssh keys for root
-  authorized_key:
-    exclusive: true
-    key: "{% for user in admins %}{% for key in admins[user]['keys'] %}{{ key }}\n{% endfor %}{% endfor %}"
-    state: present
-    user: "root"
-    validate_certs: true
-
 - name: Grant all admin users root privilages
   lineinfile:
     create: true
