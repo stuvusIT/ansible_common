@@ -3,3 +3,4 @@
 - include: users.yml
 - include: systemd.yml
   when: ansible_service_mgr == "systemd"
+- include: fqdn.yml

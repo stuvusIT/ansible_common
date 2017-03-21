@@ -1,6 +1,6 @@
 # common
 
-Install common packages and create all admin user accounts.
+Install common packages, create all admin user accounts, deploy SSH keys, and set the FQDN.
 
 ## Requirements
 
@@ -17,6 +17,10 @@ admins:
 	  ...
 	passwd: <hashed passphrase> #optional set password for user, passphrase needs to be hashed (for more information see: http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module)
 ```
+
+| Name   | Default     | Description                           |
+|--------|-------------|---------------------------------------|
+| domain | localdomain | Domain name for constructing the FQDN |
 
 ## Dependencies
 
