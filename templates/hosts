@@ -5,8 +5,8 @@
 # {{ ansible_managed }}
 
 # localhost
-127.0.0.1 {{ inventory_hostname_short }} {{ inventory_hostname_short }}.{{ domain }} localhost localhost.{{ domain }}
-::1 {{ inventory_hostname_short }} {{ inventory_hostname_short }}.{{ domain }} localhost localhost.{{ domain }}
+127.0.0.1 localhost localhost.{{ domain }}
+::1 localhost localhost.{{ domain }}
 
 # IPv4
 {% for addr in ansible_all_ipv4_addresses %}
