@@ -1,0 +1,13 @@
+---
+- name: Set the system's hostname
+  copy:
+    dest: /etc/hostname
+    owner: root
+    group: root
+    mode: 0644
+    content: "{{ inventory_hostname_short }}\n"
+  register: hostname
+
+- name: Regather facts
+  action: setup
+  when: hostname.changed
