@@ -5,31 +5,22 @@
     state: present
     system: true
 
+- name: Make sure SSH group is present
+  group:
+    name: ssh-users
+    system: true
+
 - name: Create admin users
   user:
     comment: "{{ item.value.name }}"
     createhome: true
-    groups: dialout,users,wheel
+    groups: dialout,users,wheel,ssh-users
     state: present
     system: no
     name: "{{ item.key }}"
     shell: "{{ item.value.shell|default('/bin/bash') }}"
     password: "{{ item.value.passwd|default('$6$mDFWEb5pDY$C9ZTuNjTTSyh0uIBoZALAV6isFY4dO8gBN2/xJ0yX2rejvr2wKp/wMmHwvoC.gD8NaeozxjhWvNHp3rJEJdJj1') }}"
   with_dict: "{{ admins }}"
-  when: ansible_os_family != "FreeBSD"
-
-- name: Create admin users @FreeBSD
-  user:
-    comment: "{{ item.value.name }}"
-    createhome: yes
-    groups: wheel,admins
-    state: present
-    system: no
-    name: "{{ item.key }}"
-    shell: "/usr/local/bin/bash"
-    password: "{{ item.value.passwd|default('$6$mDFWEb5pDY$C9ZTuNjTTSyh0uIBoZALAV6isFY4dO8gBN2/xJ0yX2rejvr2wKp/wMmHwvoC.gD8NaeozxjhWvNHp3rJEJdJj1') }}"
-  with_dict: "{{ admins }}"
-  when: ansible_os_family == "FreeBSD"
 
 - name: Update ssh keys for users
   authorized_key:
@@ -39,14 +30,6 @@
     user: "{{ item }}"
     validate_certs: true
   with_items: "{{ admins }}"
-
-- name: Update ssh keys for root
-  authorized_key:
-    exclusive: true
-    key: "{% for user in admins %}{% for key in admins[user]['keys'] %}{{ key }}\n{% endfor %}{% endfor %}"
-    state: present
-    user: "root"
-    validate_certs: true
 
 - name: Grant all admin users root privilages
   lineinfile:
@@ -59,17 +42,3 @@
     owner: root
     group: root
     state: present
-  when: ansible_os_family != "FreeBSD"
-
-- name: Grant all admin users root privilages @FreeBSD
-  lineinfile:
-    create: yes
-    dest: /usr/local/etc/sudoers
-    regexp: '^%wheel\s'
-    insertafter: 'Same thing without a password'
-    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
-    mode: 0400
-    owner: root
-    group: wheel
-    state: present
-  when: ansible_os_family == "FreeBSD"
