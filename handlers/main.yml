@@ -1,3 +1,4 @@
 ---
 - include: systemd.yml
 - include: ssh.yml
+- include: adjtime.yml
