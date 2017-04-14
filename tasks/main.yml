@@ -5,4 +5,5 @@
 - include: systemd.yml
   when: ansible_service_mgr == "systemd"
 - include: hostname.yml
+- include: fqdn.yml
 - include: timezone.yml
