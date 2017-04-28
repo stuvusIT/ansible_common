@@ -12,6 +12,7 @@
       - ctags
       - sudo
       - zsh
+      - nano
   when: ansible_os_family == "Debian"
 
 - name: Install common packages @Gentoo
