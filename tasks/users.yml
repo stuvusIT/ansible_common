@@ -14,7 +14,7 @@
   user:
     comment: "{{ item.value.name }}"
     createhome: true
-    groups: dialout,users,wheel,ssh-users
+    groups: adm,dialout,users,wheel,ssh-users
     state: present
     system: no
     name: "{{ item.key }}"
