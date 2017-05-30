@@ -42,6 +42,7 @@ admins:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5aaaaIEFmmHsB7LgVMmujy51QfoSS9hnN7GMEm+Mkcg1YVJnn max123
 timezone: Europe/Berlin
 ```
+By default, ssh moduli will be generated. To omit this step, run ansible with the option `--skip-tags "ssh_moduli"`
 
 ## License
 
