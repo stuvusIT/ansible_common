@@ -1,7 +1,0 @@
----
-- copy:
-    src: unit-failed@.service
-    dest: /etc/systemd/system/unit-failed@.service
-    mode: 0644
-  notify:
-    - Reload systemd
