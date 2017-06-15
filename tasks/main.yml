@@ -1,11 +1,11 @@
 ---
 - include: common_packages.yml
 - include: users.yml
+  tags:
+    - user
 - include: ssh.yml
   tags:
     - ssh
-- include: systemd.yml
-  when: ansible_service_mgr == "systemd"
 - include: hostname.yml
 - include: fqdn.yml
 - include: timezone.yml
