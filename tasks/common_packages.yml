@@ -13,6 +13,8 @@
       - ctags
       - sudo
       - zsh
+      - aptitude
+      - needrestart
   when: ansible_os_family == "Debian"
 
 - name: Install common packages @Gentoo
