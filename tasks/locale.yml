@@ -1,0 +1,10 @@
+- name: Set keyboard layout
+  lineinfile:
+    path: /etc/default/keyboard
+    regexp: "^XKBLAYOUT="
+    line: "XKBLAYOUT={{ keyboard_layout | default('us,de') }}"
+
+- name: Install locales
+  locale_gen:
+    name: "{{ item }}"
+  with_items: "{{ locales | default('en_US.UTF-8') }}"
