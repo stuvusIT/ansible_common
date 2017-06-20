@@ -15,6 +15,7 @@
       - zsh
       - aptitude
       - needrestart
+      - openssh-server
   when: ansible_os_family == "Debian"
 
 - name: Install common packages @Gentoo
