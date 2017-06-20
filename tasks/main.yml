@@ -8,3 +8,4 @@
     - ssh
 - include: hostname.yml
 - include: fqdn.yml
+- include: keyboard.yml
