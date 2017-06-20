@@ -8,3 +8,9 @@
   locale_gen:
     name: "{{ item }}"
   with_items: "{{ locales | default('en_US.UTF-8') }}"
+
+- name: Set default language
+  lineinfile:
+    path: /etc/default/locale
+    regex: "^LANG="
+    line: "LANG={{ default_language | default('') }}"
