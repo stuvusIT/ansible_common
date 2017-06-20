@@ -12,5 +12,5 @@
 - name: Set default language
   lineinfile:
     path: /etc/default/locale
-    regex: "^LANG="
+    regexp: "^LANG="
     line: "LANG={{ default_language | default('') }}"
