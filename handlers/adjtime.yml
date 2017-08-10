@@ -1,4 +1,0 @@
----
-- name: Write adjtime
-  command: hwclock --systohc
-  when: server_type == "hw"
