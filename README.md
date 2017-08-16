@@ -16,6 +16,9 @@ admins:
       - <ssh key to deploy>
       ...
     passwd: <hashed passphrase> #optional set password for user, passphrase needs to be hashed (for more information see: http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module)
+locales: <array of locales to generate>
+keyboard_layout: <Keyboard layout to select for the TTY>
+default_language: <Default locale for the system>
 ```
 
 ## Dependencies
@@ -39,6 +42,11 @@ admins:
     name: Lena Mustermann
     keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5aaaaIEFmmHsB7LgVMmujy51QfoSS9hnN7GMEm+Mkcg1YVJnn max123
+default_language: de_DE.UTF-8
+keyboard_layout: de
+locales:
+  - de_DE.UTF-8
+  - en_US.UTF-8
 ```
 By default, ssh moduli will be generated. To omit this step, run ansible with the option `--skip-tags "ssh_moduli"`
 
