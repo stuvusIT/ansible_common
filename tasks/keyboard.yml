@@ -1,0 +1,4 @@
+- lineinfile:
+    path: /etc/default/keyboard
+    regexp: "^XKBLAYOUT="
+    line: "XKBLAYOUT={{ keyboard_layout | default('us,de') }}"
