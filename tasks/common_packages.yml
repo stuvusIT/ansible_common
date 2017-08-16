@@ -13,8 +13,6 @@
       - ctags
       - sudo
       - zsh
-      - aptitude
-      - needrestart
       - openssh-server
   when: ansible_os_family == "Debian"
 
