@@ -1,54 +1,61 @@
 # common
 
-Install common packages and create all admin user accounts.
+- Installs common packages
+- Creates user accounts and adds them to the `wheel` group
+- Removes `root`s password
+- Sets language, locales and keyboard layout
+- Configures hostname settings
+- Secures sshd configuration
+- Creates SSH moduli once per host (use `--skip-tags "ssh_moduli"` to skip)
 
 ## Requirements
 
-A Debian based distribution.
+A Debian-based distribution.
 
 ## Role Variables
-```yml
-admins:
-  <username>: #admin user (login name)
-    name: <full name>
-    shell: <shell to use> #optional, default is "/bin/bash"
-    keys:
-      - <ssh key to deploy>
-      ...
-    passwd: <hashed passphrase> #optional set password for user, passphrase needs to be hashed (for more information see: http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module)
-locales: <array of locales to generate>
-keyboard_layout: <Keyboard layout to select for the TTY>
-default_language: <Default locale for the system>
-```
 
-## Dependencies
+| Name               | Mandatory / Default  | Description                                                        |
+| ------------------ | -------------------- | ------------------------------------------------------------------ |
+| `admins`           | `[]`                 | list of admin users, see [User configuration](#User configuration) |
+| `locales`          | `en_US.UTF-8`        | list of locales to install                                         |
+| `keyboard_layout`  | `us,de`              | TTY keyboard layout                                                |
+| `default_language` | `''`                 | default language                                                   |
 
-A Debian based distribution.
+### User configuration
+
+Each entry in the `admins` list shall be a username (used to log in), which is a dict containing the following entries:
+
+| Name               | Mandatory / Default  | Description                                                                                                           |
+| ------------------ | -------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `name`             | :heavy_check_mark:   | the full name of the admin user                                                                                       |
+| `shell`            | `/bin/bash`          | path to the shell that shall                                                                                          |
+| `keys`             | `[]`                 | list of ssh keys that allow this user to login via SSH                                                                |
+| `passwd`           |                      | [hashed](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) passphrase |
 
 ## Example Playbook
-### Playbook:
 
-### Vars:
 ```yml
-admins:
-  max:
-    name: Max Mustermann
-    shell: /usr/bin/zsh
-    keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5aaaaIEFmmHsB7LgVMmujy51QfoSS9hnN7GMEm+Mkcg1YVJnn max123
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5aaaaIEFmmHsB7LgVMmujy51QfoSS9hnN7GMEm+Mkcg1YVJnn max321
-    passwd: $6$mDFWEb5pDY$C9ZTuNjTTSyh0uIBoZALAV6isFY4dO8gBN2/xJ0yX2rejvr2wKp/wMmHwvoC.gD8NaeozxjhWvNHp3rJEJdJj1
-  lena:
-    name: Lena Mustermann
-    keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5aaaaIEFmmHsB7LgVMmujy51QfoSS9hnN7GMEm+Mkcg1YVJnn max123
-default_language: de_DE.UTF-8
-keyboard_layout: de
-locales:
-  - de_DE.UTF-8
-  - en_US.UTF-8
+- hosts: web01
+  roles:
+    - role: common
+      admins:
+        max:
+          name: Max Mustermann
+          shell: /usr/bin/zsh
+          keys:
+            - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5aaaaIEFmmHsB7LgVMmujy51QfoSS9hnN7GMEm+Mkcg1YVJnn max123
+            - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5aaaaIEFmmHsB7LgVMmujy51QfoSS9hnN7GMEm+Mkcg1YVJnn max321
+          passwd: $6$mDFWEb5pDY$C9ZTuNjTTSyh0uIBoZALAV6isFY4dO8gBN2/xJ0yX2rejvr2wKp/wMmHwvoC.gD8NaeozxjhWvNHp3rJEJdJj1
+        lena:
+          name: Lena Mustermann
+          keys:
+            - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5aaaaIEFmmHsB7LgVMmujy51QfoSS9hnN7GMEm+Mkcg1YVJnn max123
+      default_language: de_DE.UTF-8
+      keyboard_layout: de
+      locales:
+        - de_DE.UTF-8
+        - en_US.UTF-8
 ```
-By default, ssh moduli will be generated. To omit this step, run ansible with the option `--skip-tags "ssh_moduli"`
 
 ## License
 
