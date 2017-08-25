@@ -13,3 +13,10 @@
       - sudo
       - zsh
       - openssh-server
+      - htop
+      - kbd
+      - man
+      - iproute2
+      - iputils-ping
+      - less
+      - psmisc
