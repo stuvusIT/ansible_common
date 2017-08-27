@@ -1,0 +1,28 @@
+---
+- name: Check if sshd moduli were generated
+  stat:
+    path: /etc/ssh/.moduli-generated
+  register: sshd_moduli
+
+- name: Generate all sshd moduli
+  command: ssh-keygen -G /etc/ssh/moduli.all -b 8192
+  when: not sshd_moduli.stat.exists
+
+- name: Filter out safe sshd moduli
+  command: ssh-keygen -T /etc/ssh/moduli.safe -f /etc/ssh/moduli.all
+  when: not sshd_moduli.stat.exists
+
+- name: Move sshd moduli
+  command: mv /etc/ssh/moduli.safe /etc/ssh/moduli
+  when: not sshd_moduli.stat.exists
+  notify: Restart sshd
+
+- name: Create sshd moduli flag
+  file:
+    path: /etc/ssh/.moduli-generated
+    state: touch
+
+- name: Delete temporary moduli file
+  file:
+    path: /etc/ssh/moduli.all
+    state: absent
