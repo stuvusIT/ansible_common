@@ -1,0 +1,8 @@
+---
+- name: Write the system's host file
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+    mode: 0644
+    owner: root
+    group: root

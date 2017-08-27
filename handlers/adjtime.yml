@@ -1,3 +1,0 @@
----
-- name: Write adjtime
-  command: hwclock --systohc

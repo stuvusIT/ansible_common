@@ -1,5 +1,10 @@
 ---
-- name: Install common packages @Debian
+- name: Update repositories cache
+  apt:
+    update_cache: yes
+  changed_when: false
+
+- name: Install common packages
   apt:
     name:
       - vim-nox
@@ -8,19 +13,11 @@
       - sudo
       - zsh
       - nano
-  when: ansible_os_family == "Debian"
-
-- name: Install common packages @Gentoo
-  portage:
-    sync: yes
-    package: "{{ item }}"
-    state: present
-    update: true
-  with_items:
-    - "app-editors/vim"
-    - "app-admin/sudo"
-    - "dev-util/ctags"
-    - "dev-vcs/git"
-    - "app-shells/zsh"
-  when: ansible_os_family == "Gentoo"
-
+      - openssh-server
+      - htop
+      - kbd
+      - man
+      - iproute2
+      - iputils-ping
+      - less
+      - psmisc
