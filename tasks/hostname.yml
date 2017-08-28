@@ -1,5 +1,5 @@
 ---
-- name: Set the system's hostname
+- name: Set the system's hostname (1/2)
   copy:
     dest: /etc/hostname
     owner: root
@@ -8,6 +8,18 @@
     content: "{{ inventory_hostname_short }}\n"
   register: hostname
 
+- name: Set the system's hostname (2/2)
+  hostname:
+    name: "{{ inventory_hostname_short }}"
+
 - name: Regather facts
   action: setup
   when: hostname.changed
+
+- name: Write the system's host file
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+    mode: 0644
+    owner: root
+    group: root

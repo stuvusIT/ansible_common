@@ -1,0 +1,100 @@
+---
+- name: Force SSH Version 2 in server
+  lineinfile:
+    name: /etc/ssh/sshd_config
+    regexp: "^\\s*#?\\s*Protocol"
+    line: "Protocol 2"
+  notify: Restart sshd
+
+- name: Disable weak SSH server key exchange algorithms
+  lineinfile:
+    name: /etc/ssh/sshd_config
+    regexp: "^\\s*#?\\s*KexAlgorithms"
+    line: "KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256"
+  notify: Restart sshd
+
+- name: Disable weak SSH server key algorithms for authentication
+  lineinfile:
+    name: /etc/ssh/sshd_config
+    regexp: "^\\s*#?\\s*HostKey.*/ssh_host_{{ item }}_key$"
+    state: absent
+  with_items:
+    - dsa
+    - ecdsa
+  notify: Restart sshd
+
+- name: Delete weak SSH host keys
+  file:
+    name: /etc/ssh/{{ item }}
+    state: absent
+  with_items:
+    - ssh_host_ecdsa_key
+    - ssh_host_ecdsa_key.pub
+    - ssh_host_dsa_key
+    - ssh_host_dsa_key.pub
+
+- name: Create strong SSH server keys
+  command:
+    cmd: ssh-keygen -b 8192 -t {{ item }} -f /etc/ssh/ssh_host_{{ item }}_key -N ""
+    creates: /etc/ssh/ssh_host_{{ item }}_key
+  with_items:
+    - rsa
+    - ed25519
+  notify: Restart sshd
+
+- name: Disable SSH password authentication in server (1/2)
+  lineinfile:
+    name: /etc/ssh/sshd_config
+    regexp: "\\s*#\\s*PasswordAuthentication "
+    line: "PasswordAuthentication no"
+    backrefs: yes
+  notify: Restart sshd
+
+- name: Disable SSH password authentication in server (2/2)
+  lineinfile:
+    name: /etc/ssh/sshd_config
+    regexp: "^\\s*#?\\s*ChallengeResponseAuthentication"
+    line: "ChallengeResponseAuthentication no"
+  notify: Restart sshd
+
+- name: Enable SSH public key authentication in server
+  lineinfile:
+    name: /etc/ssh/sshd_config
+    regexp: "^\\s*#?\\s*PubkeyAuthentication"
+    line: "PubkeyAuthentication yes"
+  notify: Restart sshd
+
+- name: Require group memebership to connect via SSH
+  lineinfile:
+    name: /etc/ssh/sshd_config
+    regexp: "^\\s*#?\\s*AllowGroups"
+    line: "AllowGroups ssh-users"
+  notify: Restart sshd
+
+- name: Disable root login via SSH
+  lineinfile:
+    name: /etc/ssh/sshd_config
+    regexp: "^\\s*#?\\s*PermitRootLogin"
+    line: "PermitRootLogin no"
+  notify: Restart sshd
+
+- name: Disable weak SSH server ciphers
+  lineinfile:
+    name: /etc/ssh/sshd_config
+    regexp: "^\\s*#?\\s*Ciphers"
+    line: "Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr"
+  notify: Restart sshd
+
+- name: Disable weak SSH server MACs
+  lineinfile:
+    name: /etc/ssh/sshd_config
+    regexp: "^\\s*#?\\s*MACs"
+    line: "MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com"
+  notify: Restart sshd
+
+- name: Enable sshd keepalives in server
+  lineinfile:
+    name: /etc/ssh/sshd_config
+    regexp: "^\\s*#?\\s*ClientAliveInterval"
+    line: "ClientAliveInterval 120"
+  notify: Restart sshd

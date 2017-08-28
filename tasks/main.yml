@@ -1,11 +1,21 @@
 ---
 - include: common_packages.yml
+  tags:
+    - packages
 - include: users.yml
   tags:
     - user
-- include: ssh.yml
+- include: ssh_client.yml
   tags:
     - ssh
+    - ssh_client
+- include: ssh_server.yml
+  tags:
+    - ssh
+    - ssh_server
+- include: ssh_moduli.yml
+  tags:
+    - ssh
+    - ssh_moduli
 - include: hostname.yml
-- include: fqdn.yml
 - include: locale.yml
