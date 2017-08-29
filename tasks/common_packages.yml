@@ -21,6 +21,7 @@
       - ctags
       - sudo
       - zsh
+      - nano
       - openssh-server
       - htop
       - kbd
