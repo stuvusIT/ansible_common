@@ -21,3 +21,4 @@
       - iputils-ping
       - less
       - psmisc
+      - dbus
