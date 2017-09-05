@@ -1,19 +1,11 @@
-#{{ansible_architecture}}
+# {{ ansible_managed }}
 
 {% if ansible_architecture=='x86_64' %}
 deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} main universe
-{% else %}
-deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }} main universe
-{% endif %}
-
-{% if ansible_architecture=='x86_64' %}
 deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security main universe
-{% else %}
-deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }}-updates main universe
-{% endif %}
-
-{% if ansible_architecture=='x86_64' %}
 deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates main universe
 {% else %}
+deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }} main universe
 deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }}-security main universe
+deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }}-updates main universe
 {% endif %}
