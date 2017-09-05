@@ -7,7 +7,6 @@
     owner: root
     group: root
 
-
 - name: Update repositories cache
   apt:
     update_cache: yes
