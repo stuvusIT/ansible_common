@@ -1,11 +1,11 @@
 # {{ ansible_managed }}
 
 {% if ansible_architecture=='x86_64' %}
-deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} main universe
-deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security main universe
-deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates main universe
+deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} {{ apt_repository_versions | join(" ") }}
+deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security {{ apt_repository_versions | join(" ") }}
+deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates {{ apt_repository_versions | join(" ") }}
 {% else %}
-deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }} main universe
-deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }}-security main universe
-deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }}-updates main universe
+deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }} {{ apt_repository_versions | join(" ") }}
+deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }}-security {{ apt_repository_versions | join(" ") }}
+deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }}-updates {{ apt_repository_versions | join(" ") }}
 {% endif %}
