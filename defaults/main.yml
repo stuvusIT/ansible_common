@@ -1,2 +1,5 @@
 ---
 domain: localdomain
+apt_repository_versions:
+ - main
+ - universe
