@@ -1,21 +1,21 @@
 ---
-- include: common_packages.yml
+- import_tasks: common_packages.yml
   tags:
     - packages
-- include: users.yml
+- import_tasks: users.yml
   tags:
     - user
-- include: ssh_client.yml
+- import_tasks: ssh_client.yml
   tags:
     - ssh
     - ssh_client
-- include: ssh_server.yml
+- import_tasks: ssh_server.yml
   tags:
     - ssh
     - ssh_server
-- include: ssh_moduli.yml
+- import_tasks: ssh_moduli.yml
   tags:
     - ssh
     - ssh_moduli
-- include: hostname.yml
-- include: locale.yml
+- import_tasks: hostname.yml
+- import_tasks: locale.yml
