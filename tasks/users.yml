@@ -53,3 +53,5 @@
     owner: root
     group: shadow
     state: present
+  tags:
+    - root_user

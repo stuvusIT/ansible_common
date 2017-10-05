@@ -18,4 +18,8 @@
     - ssh
     - ssh_moduli
 - import_tasks: hostname.yml
+  tags:
+    - hostname
 - import_tasks: locale.yml
+  tags:
+    - localisation
