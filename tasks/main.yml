@@ -5,17 +5,5 @@
 - import_tasks: users.yml
   tags:
     - user
-- import_tasks: ssh_client.yml
-  tags:
-    - ssh
-    - ssh_client
-- import_tasks: ssh_server.yml
-  tags:
-    - ssh
-    - ssh_server
-- import_tasks: ssh_moduli.yml
-  tags:
-    - ssh
-    - ssh_moduli
 - import_tasks: hostname.yml
 - import_tasks: locale.yml

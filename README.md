@@ -5,8 +5,6 @@
 - Removes `root`s password
 - Sets language, locales and keyboard layout
 - Configures hostname settings
-- Secures sshd configuration
-- Creates SSH moduli once per host (use `--skip-tags "ssh_moduli"` to skip)
 
 ## Requirements
 
