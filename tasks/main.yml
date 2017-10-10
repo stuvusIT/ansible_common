@@ -22,4 +22,4 @@
     - hostname
 - import_tasks: locale.yml
   tags:
-    - localisation
+    - localization
