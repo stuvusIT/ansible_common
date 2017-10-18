@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: Markus Mroch (Mr. Pi)
   description: Install common packages and create all admin user accounts.
