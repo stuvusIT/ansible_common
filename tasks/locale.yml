@@ -1,3 +1,4 @@
+---
 - name: Set keyboard layout
   lineinfile:
     path: /etc/default/keyboard
