@@ -7,3 +7,15 @@
     - user
 - import_tasks: hostname.yml
 - import_tasks: locale.yml
+
+- name: Mask Ubuntu's static TTYs
+  systemd:
+    name: getty-static.service
+    masked: yes
+
+- name: Mask getty on TTY 1
+  systemd:
+    name: getty@tty1.service
+    state: stopped
+    masked: yes
+  when: "ansible_virtualization_type == 'xen'"
