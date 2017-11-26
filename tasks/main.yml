@@ -18,4 +18,4 @@
     name: getty@tty1.service
     state: stopped
     masked: yes
-  when: "ansible_virtualization_type == 'xen'"
+  when: "ansible_virtualization_type == 'xen' and ansible_virtualization_role != 'host'"
