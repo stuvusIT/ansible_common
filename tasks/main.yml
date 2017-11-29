@@ -7,6 +7,7 @@
     - user
 - import_tasks: hostname.yml
 - import_tasks: locale.yml
+- import_tasks: sensible-stuff.yml
 
 - name: Mask Ubuntu's static TTYs
   systemd:

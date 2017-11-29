@@ -1,0 +1,8 @@
+---
+- name: Install sensible zshrc
+  template:
+    src: zshrc.j2
+    dest: /etc/zsh/zshrc
+    owner: root
+    group: root
+    mode: 0644
