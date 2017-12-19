@@ -6,6 +6,7 @@
     mode: 0644
     owner: root
     group: root
+  when: "ansible_distribution == 'Ubuntu'"
 
 - name: Update repositories cache
   apt:
