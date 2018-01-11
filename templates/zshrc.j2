@@ -55,6 +55,8 @@ KEYTIMEOUT=1
 # Home and End keys
 [[ "${terminfo[khome]}" != "" ]] && bindkey "${terminfo[khome]}" beginning-of-line
 [[ "${terminfo[kend]}" != "" ]] && bindkey "${terminfo[kend]}"  end-of-line
+# Delete key
+[[ "${terminfo[kdch1]}" != "" ]] && bindkey "${terminfo[kdch1]}" delete-char
 # Ctrl+Arrow
 bindkey '^[[1;5C' forward-word
 bindkey '^[[1;5D' backward-word
