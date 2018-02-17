@@ -32,3 +32,4 @@
       - psmisc
       - dbus
       - locales
+      - nfs-client
