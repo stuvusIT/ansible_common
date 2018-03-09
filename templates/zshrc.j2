@@ -101,6 +101,7 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
 HISTFILE=~/.zhistory
 HISTSIZE=10000
+SAVEHIST=10000
 
 # Software
 export EDITOR=vim
