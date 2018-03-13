@@ -33,3 +33,4 @@
       - dbus
       - locales
       - nfs-client
+      - net-tools
