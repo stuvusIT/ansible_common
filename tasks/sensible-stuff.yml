@@ -6,3 +6,11 @@
     owner: root
     group: root
     mode: 0644
+
+- name: Install sensible htoprc
+  template:
+    src: htoprc.j2
+    dest: /etc/htoprc
+    owner: root
+    group: root
+    mode: 0644
