@@ -34,3 +34,11 @@
       - locales
       - nfs-client
       - net-tools
+      - tree
+      - tmux
+      - ncdu
+      - iostat
+      - dialog
+      - nmap
+      - curl
+      - wget
