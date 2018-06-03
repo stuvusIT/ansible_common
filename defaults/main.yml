@@ -3,3 +3,7 @@ domain: localdomain
 apt_repository_versions:
  - main
  - universe
+keyboard_layout: 'us,de'
+locales:
+  - en_US.UTF-8
+default_language: en_US.UTF-8
