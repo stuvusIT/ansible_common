@@ -15,7 +15,7 @@ A Debian-based distribution.
 | Name                      | Mandatory / Default | Description                                                        |
 |:-------------------------:|:-------------------:|:------------------------------------------------------------------:|
 | `admins`                  | `[]`                | list of admin users, see [User configuration](#User configuration) |
-| `locales`                 | `en_US.UTF-8`       | list of locales to install                                         |
+| `locales`                 | `[en_US.UTF-8]`       | list of locales to install                                         |
 | `keyboard_layout`         | `us,de`             | TTY keyboard layout                                                |
 | `default_language`        | `en_US.UTF-8`       | default language                                                   |
 | `apt_repository_versions` | `[main, universe]`  | List of apt repository versions to enable                          |
