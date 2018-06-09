@@ -3,15 +3,12 @@
   lineinfile:
     path: /etc/default/keyboard
     regexp: "^XKBLAYOUT="
-    line: "XKBLAYOUT={{ keyboard_layout | default('us,de') }}"
+    line: "XKBLAYOUT={{ keyboard_layout }}"
 
 - name: Install locales
   locale_gen:
     name: "{{ item }}"
-  with_items: "{{ locales | default('en_US.UTF-8') }}"
+  with_items: "{{ locales }}"
 
 - name: Set default language
-  lineinfile:
-    path: /etc/default/locale
-    regexp: "^LANG="
-    line: "LANG={{ default_language | default('') }}"
+  command: 'update-locale LANG="{{ default_language }}"'
