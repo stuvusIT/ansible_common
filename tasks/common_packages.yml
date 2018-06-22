@@ -34,3 +34,4 @@
       - locales
       - nfs-client
       - net-tools
+      - console-setup
