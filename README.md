@@ -12,13 +12,16 @@ A Debian-based distribution.
 
 ## Role Variables
 
-| Name                      | Mandatory / Default | Description                                                        |
-|:-------------------------:|:-------------------:|:------------------------------------------------------------------:|
-| `admins`                  | `[]`                | list of admin users, see [User configuration](#User configuration) |
-| `locales`                 | `[en_US.UTF-8]`       | list of locales to install                                         |
-| `keyboard_layout`         | `us,de`             | TTY keyboard layout                                                |
-| `default_language`        | `en_US.UTF-8`       | default language                                                   |
-| `apt_repository_versions` | `[main, universe]`  | List of apt repository versions to enable                          |
+| Name                      | Mandatory / Default | Description                                                                              |
+|:-------------------------:|:-------------------:|:----------------------------------------------------------------------------------------:|
+| `admins`                  | `[]`                | list of admin users, see [User configuration](#User configuration)                       |
+| `locales`                 | `[en_US.UTF-8]`     | list of locales to install                                                               |
+| `keyboard_layout`         | `us,de`             | TTY keyboard layout                                                                      |
+| `default_language`        | `en_US.UTF-8`       | default language                                                                         |
+| `apt_repository_versions` | `[main, universe]`  | List of apt repository versions to enable                                                |
+| `common_debian_sources`   |                     | Verbatim sources.list definition for Debian. Overrides the usual sources.list generation |
+| `common_ubuntu_sources`   |                     | Verbatim sources.list definition for Ubuntu. Overrides the usual sources.list generation |
+
 ### User configuration
 
 Each entry in the `admins` list shall be a username (used to log in), which is a dict containing the following entries:
