@@ -6,7 +6,30 @@
     mode: 0644
     owner: root
     group: root
-  when: "ansible_distribution == 'Ubuntu'"
+  when: (ansible_distribution == 'Ubuntu' and common_ubuntu_sources is not defined) or (ansible_distribution == 'Debian' and common_debian_sources is not defined)
+
+- name: Write Debian apt sorces file
+  template:
+    src: sources-custom.list.j2
+    dest: /etc/apt/sources.list
+    mode: 0644
+    owner: root
+    group: root
+  vars:
+    sources: "{{ common_debian_sources }}"
+  when: ansible_distribution == 'Debian' and common_debian_sources is defined
+
+- name: Write Ubuntu apt sorces file
+  template:
+    src: sources-custom.list.j2
+    dest: /etc/apt/sources.list
+    mode: 0644
+    owner: root
+    group: root
+  vars:
+    sources: "{{ common_ubuntu_sources }}"
+  when: ansible_distribution == 'Ubuntu' and common_ubuntu_sources is defined
+
 
 - name: Update repositories cache
   apt:
