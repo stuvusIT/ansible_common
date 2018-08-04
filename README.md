@@ -12,22 +12,22 @@ A Debian-based distribution.
 
 ## Role Variables
 
-|            Name           | Mandatory / Default | Description                                                        |
+| Name                      | Mandatory / Default | Description                                                        |
 |:-------------------------:|:-------------------:|--------------------------------------------------------------------|
-|          `admins`         |         `[]`        | list of admin users, see [User configuration](#User configuration) |
-|         `locales`         |   `[en_US.UTF-8]`   | list of locales to install                                         |
-|     `keyboard_layout`     |       `us,de`       | TTY keyboard layout                                                |
-|     `default_language`    |    `en_US.UTF-8`    | default language                                                   |
-| `apt_repository_versions` |  `[main, universe]` | List of apt repository versions to enable                          |
+| `admins`                  | `[]`                | list of admin users, see [User configuration](#User configuration) |
+| `locales`                 | `[en_US.UTF-8]`     | list of locales to install                                         |
+| `keyboard_layout`         | `us,de`             | TTY keyboard layout                                                |
+| `default_language`        | `en_US.UTF-8`       | default language                                                   |
+| `apt_repository_versions` | `[main, universe]`  | List of apt repository versions to enable                          |
 ### User configuration
 
 Each entry in the `admins` list shall be a username (used to log in), which is a dict containing the following entries:
 
-|   Name   | Mandatory / Default | Description                                                                                                           |
+| Name     | Mandatory / Default | Description                                                                                                           |
 |:--------:|:-------------------:|:----------------------------------------------------------------------------------------------------------------------|
-|  `name`  |  :heavy_check_mark: | the full name of the admin user                                                                                       |
-|  `shell` |     `/bin/bash`     | path to the shell that shall                                                                                          |
-|  `keys`  |         `[]`        | list of ssh keys that allow this user to login via SSH                                                                |
+| `name`   | :heavy_check_mark:  | the full name of the admin user                                                                                       |
+| `shell`  | `/bin/bash`         | path to the shell that shall                                                                                          |
+| `keys`   | `[]`                | list of ssh keys that allow this user to login via SSH                                                                |
 | `passwd` |                     | [hashed](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) passphrase |
 
 ## Example Playbook
