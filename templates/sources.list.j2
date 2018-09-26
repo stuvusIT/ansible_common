@@ -1,5 +1,13 @@
 # {{ ansible_managed }}
 
+{% if ansible_distribution=='Debian' %}
+
+deb http://deb.debian.org/debian {{ ansible_distribution_release }} {{ apt_repository_versions | join(" ") }}
+deb http://deb.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ apt_repository_versions | join(" ") }}
+deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ apt_repository_versions | join(" ") }}
+
+{% else %}
+
 {% if ansible_architecture=='x86_64' %}
 deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} {{ apt_repository_versions | join(" ") }}
 deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security {{ apt_repository_versions | join(" ") }}
@@ -8,4 +16,6 @@ deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates 
 deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }} {{ apt_repository_versions | join(" ") }}
 deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }}-security {{ apt_repository_versions | join(" ") }}
 deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }}-updates {{ apt_repository_versions | join(" ") }}
+{% endif %}
+
 {% endif %}
