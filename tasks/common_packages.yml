@@ -15,23 +15,4 @@
 
 - name: Install common packages
   apt:
-    name:
-      - vim-nox
-      - git
-      - ctags
-      - sudo
-      - zsh
-      - nano
-      - openssh-server
-      - htop
-      - kbd
-      - man
-      - iproute2
-      - iputils-ping
-      - less
-      - psmisc
-      - dbus
-      - locales
-      - nfs-client
-      - net-tools
-      - console-setup
+    name: "{{ common_packages }}"
