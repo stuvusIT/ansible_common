@@ -35,3 +35,4 @@
       - nfs-client
       - net-tools
       - console-setup
+      - apt-utils

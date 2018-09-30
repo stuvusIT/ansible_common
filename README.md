@@ -26,12 +26,12 @@ A Debian-based distribution.
 
 Each entry in the `admins` list shall be a username (used to log in), which is a dict containing the following entries:
 
-| Name               | Mandatory / Default  | Description                                                                                                           |
-|:------------------:|:--------------------:|:---------------------------------------------------------------------------------------------------------------------:|
-| `name`             | :heavy_check_mark:   | the full name of the admin user                                                                                       |
-| `shell`            | `/bin/bash`          | path to the shell that shall                                                                                          |
-| `keys`             | `[]`                 | list of ssh keys that allow this user to login via SSH                                                                |
-| `passwd`           |                      | [hashed](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) passphrase |
+| Name     | Mandatory / Default | Description                                                                                                           |
+|:--------:|:-------------------:|:----------------------------------------------------------------------------------------------------------------------|
+| `name`   | :heavy_check_mark:  | the full name of the admin user                                                                                       |
+| `shell`  | `/bin/bash`         | path to the shell that shall                                                                                          |
+| `keys`   | `[]`                | list of ssh keys that allow this user to login via SSH                                                                |
+| `passwd` |                     | [hashed](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) passphrase |
 
 ## Example Playbook
 
