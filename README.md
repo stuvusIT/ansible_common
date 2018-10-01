@@ -12,26 +12,29 @@ A Debian-based distribution.
 
 ## Role Variables
 
-| Name                      | Mandatory / Default | Description                                                                              |
-|:-------------------------:|:-------------------:|:----------------------------------------------------------------------------------------:|
-| `admins`                  | `[]`                | list of admin users, see [User configuration](#User configuration)                       |
-| `locales`                 | `[en_US.UTF-8]`     | list of locales to install                                                               |
-| `keyboard_layout`         | `us,de`             | TTY keyboard layout                                                                      |
-| `default_language`        | `en_US.UTF-8`       | default language                                                                         |
-| `apt_repository_versions` | `[main, universe]`  | List of apt repository versions to enable                                                |
-| `common_debian_sources`   |                     | Verbatim sources.list definition for Debian. Overrides the usual sources.list generation |
-| `common_ubuntu_sources`   |                     | Verbatim sources.list definition for Ubuntu. Overrides the usual sources.list generation |
+| Name                      |        Mandatory / Default        | Description                                                                                                                       |
+|:--------------------------|:---------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------|
+| `admins`                  |                `[]`               | list of admin users, see [User configuration](#User configuration)                                                                |
+| `locales`                 |          `[en_US.UTF-8]`          | list of locales to install                                                                                                        |
+| `keyboard_layout`         |              `us,de`              | TTY keyboard layout                                                                                                               |
+| `default_language`        |           `en_US.UTF-8`           | default language                                                                                                                  |
+| `apt_repository_versions` |         `[main, universe]`        | List of apt repository versions to enable                                                                                         |
+| `common_debian_sources`   |                                   | Verbatim sources.list definition for Debian. Overrides the usual sources.list generation                                          |
+| `common_ubuntu_sources`   |                                   | Verbatim sources.list definition for Ubuntu. Overrides the usual sources.list generation                                          |
+| `common_core_packages`    | see [defaults](defaults/main.yml) | Common core packages to install (like locales or iproute2)                                                                        |
+| `common_extra_packages`   | see [defaults](defaults/main.yml) | Common extra packages to install (like less or htop)                                                                              |
+| `common_custom_packages`  |                `[]`               | Custom packages to install, use this variable if you want to have some extra packages installed and the same preselected packages |
 
 ### User configuration
 
 Each entry in the `admins` list shall be a username (used to log in), which is a dict containing the following entries:
 
-| Name               | Mandatory / Default  | Description                                                                                                           |
-|:------------------:|:--------------------:|:---------------------------------------------------------------------------------------------------------------------:|
-| `name`             | :heavy_check_mark:   | the full name of the admin user                                                                                       |
-| `shell`            | `/bin/bash`          | path to the shell that shall                                                                                          |
-| `keys`             | `[]`                 | list of ssh keys that allow this user to login via SSH                                                                |
-| `passwd`           |                      | [hashed](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) passphrase |
+| Name     | Mandatory / Default | Description                                                                                                           |
+|:---------|:-------------------:|:----------------------------------------------------------------------------------------------------------------------|
+| `name`   |  :heavy_check_mark: | the full name of the admin user                                                                                       |
+| `shell`  |     `/bin/bash`     | path to the shell that shall                                                                                          |
+| `keys`   |         `[]`        | list of ssh keys that allow this user to login via SSH                                                                |
+| `passwd` |                     | [hashed](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) passphrase |
 
 ## Example Playbook
 

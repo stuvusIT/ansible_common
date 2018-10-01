@@ -1,9 +1,33 @@
 ---
 domain: localdomain
 apt_repository_versions:
- - main
- - universe
+  - main
+  - universe
 keyboard_layout: 'us,de'
 locales:
   - en_US.UTF-8
 default_language: en_US.UTF-8
+common_core_packages:
+  - ctags
+  - sudo
+  - openssh-server
+  - kbd
+  - iproute2
+  - psmisc
+  - dbus
+  - locales
+  - console-setup
+
+common_extra_packages:
+  - man
+  - zsh
+  - git
+  - vim-nox
+  - nano
+  - net-tools
+  - iputils-ping
+  - nfs-client
+  - htop
+  - less
+
+common_custom_packages: []
