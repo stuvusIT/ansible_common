@@ -7,23 +7,25 @@ keyboard_layout: 'us,de'
 locales:
   - en_US.UTF-8
 default_language: en_US.UTF-8
-common_packages:
-  - vim-nox
-  - git
+common_core_packages:
   - ctags
   - sudo
-  - zsh
-  - nano
   - openssh-server
-  - htop
   - kbd
-  - man
   - iproute2
-  - iputils-ping
-  - less
   - psmisc
   - dbus
   - locales
-  - nfs-client
-  - net-tools
   - console-setup
+
+common_extra_packages:
+  - man
+  - zsh
+  - git
+  - vim-nox
+  - nano
+  - net-tools
+  - iputils-ping
+  - nfs-client
+  - htop
+  - less

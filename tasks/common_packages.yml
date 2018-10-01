@@ -13,6 +13,15 @@
     update_cache: yes
   changed_when: false
 
-- name: Install common packages
+- name: Install core/basic packages
   apt:
-    name: "{{ common_packages }}"
+    name: "{{ common_core_packages }}"
+
+- name: Install extra packages
+  apt:
+    name: "{{ common_extra_packages }}"
+
+- name: Install custom packages
+  apt:
+    name: "{{ common_custom_packages}}"
+  when: common_custom_packages is defined
