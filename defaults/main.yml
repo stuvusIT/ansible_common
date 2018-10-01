@@ -29,3 +29,5 @@ common_extra_packages:
   - nfs-client
   - htop
   - less
+
+common_custom_packages: []
