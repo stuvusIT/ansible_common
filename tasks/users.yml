@@ -43,15 +43,17 @@
     group: root
     state: present
 
-- name: Grant nagios apt privileges
+- name: Grant nagios sudo privileges
   lineinfile:
     create: true
     dest: /etc/sudoers
-    line: 'nagios ALL=(root) NOPASSWD: /usr/lib/nagios/plugins/check_apt'
+    line: "nagios ALL=(root) NOPASSWD: {{ item }}"
     mode: 0400
     owner: root
     group: root
-    state: present
+  with_items:
+    - /usr/lib/nagios/plugins/check_apt
+    - /usr/lib/stuvus/icinga/check_kernel
 
 - name: Remove root's password
   lineinfile:
