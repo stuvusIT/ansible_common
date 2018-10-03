@@ -1,8 +1,11 @@
 ---
 domain: localdomain
-apt_repository_versions:
+apt_repository_components:
   - main
+apt_repository_components_ubuntu:
   - universe
+apt_repository_components_debian:
+  - contrib
 keyboard_layout: 'us,de'
 locales:
   - en_US.UTF-8

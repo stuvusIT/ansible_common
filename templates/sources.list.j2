@@ -1,27 +1,27 @@
 # {{ ansible_managed }}
 
-{% if ansible_distribution=='Debian' %}
+{% if ansible_distribution == 'Debian' %}
 
 {% if common_debian_sources is defined %}
 {{ common_debian_sources }}
 {% else %}
-deb http://deb.debian.org/debian {{ ansible_distribution_release }} {{ apt_repository_versions | join(" ") }}
-deb http://deb.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ apt_repository_versions | join(" ") }}
-deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ apt_repository_versions | join(" ") }}
+deb http://deb.debian.org/debian {{ ansible_distribution_release }} {{ apt_repository_components|union(apt_repository_components_debian)|join(" ") }}
+deb http://deb.debian.org/debian-security {{ ansible_distribution_release }}/updates {{ apt_repository_components|union(apt_repository_components_debian)|join(" ") }}
+deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ apt_repository_components|union(apt_repository_components_debian)|join(" ") }}
 {% endif %}
 
 {% else %}
 
 {% if common_ubuntu_sources is defined %}
 {{ common_ubuntu_sources }}
-{% elif ansible_architecture=='x86_64' %}
-deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} {{ apt_repository_versions | join(" ") }}
-deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security {{ apt_repository_versions | join(" ") }}
-deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates {{ apt_repository_versions | join(" ") }}
+{% elif ansible_architecture == 'x86_64' %}
+deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} {{ apt_repository_components|union(apt_repository_components_ubuntu)|join(" ") }}
+deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security {{ apt_repository_components|union(apt_repository_components_ubuntu)|join(" ") }}
+deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates {{ apt_repository_components|union(apt_repository_components_ubuntu)|join(" ") }}
 {% else %}
-deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }} {{ apt_repository_versions | join(" ") }}
-deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }}-security {{ apt_repository_versions | join(" ") }}
-deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }}-updates {{ apt_repository_versions | join(" ") }}
+deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }} {{ apt_repository_components|union(apt_repository_components_ubuntu)|join(" ") }}
+deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }}-security {{ apt_repository_components|union(apt_repository_components_ubuntu)|join(" ") }}
+deb http://ports.ubuntu.com/ubuntu-ports {{ ansible_distribution_release }}-updates {{ apt_repository_components|union(apt_repository_components_ubuntu)|join(" ") }}
 {% endif %}
 
 {% endif %}
