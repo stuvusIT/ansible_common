@@ -1,7 +1,7 @@
 # common
 
 - Installs common packages
-- Creates user accounts and adds them to the `wheel` group
+- Creates administrator accounts and adds them to the `wheel` group
 - Removes `root`s password
 - Sets language, locales and keyboard layout
 - Configures hostname settings
@@ -12,31 +12,33 @@ A Debian-based distribution.
 
 ## Role Variables
 
-| Name                               |        Mandatory / Default        | Description                                                                                                                       |
-|:-----------------------------------|:---------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------|
-| `admins`                           |                `[]`               | list of admin users, see [User configuration](#User configuration)                                                                |
-| `locales`                          |          `[en_US.UTF-8]`          | list of locales to install                                                                                                        |
-| `keyboard_layout`                  |              `us,de`              | TTY keyboard layout                                                                                                               |
-| `default_language`                 |           `en_US.UTF-8`           | default language                                                                                                                  |
-| `apt_repository_components`        |              `[main]`             | List of apt repository versions to enable                                                                                         |
-| `apt_repository_components_ubuntu` |            `[universe]`           | List of apt repository versions to enable                                                                                         |
-| `apt_repository_components_debian` |            `[contrib]`            | List of apt repository versions to enable                                                                                         |
-| `common_debian_sources`            |                                   | Verbatim sources.list definition for Debian. Overrides the usual sources.list generation                                          |
-| `common_ubuntu_sources`            |                                   | Verbatim sources.list definition for Ubuntu. Overrides the usual sources.list generation                                          |
-| `common_core_packages`             | see [defaults](defaults/main.yml) | Common core packages to install (like locales or iproute2)                                                                        |
-| `common_extra_packages`            | see [defaults](defaults/main.yml) | Common extra packages to install (like less or htop)                                                                              |
-| `common_custom_packages`           |                `[]`               | Custom packages to install, use this variable if you want to have some extra packages installed and the same preselected packages |
+| Name                               | Mandatory / Default               | Description                                                                                                                              |
+|:-----------------------------------|:---------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------|
+| `admins`                           | `{}`                              | Dict of admin users, see [User configuration](#User configuration)                                                                       |
+| `common_jumphost_users`            | `{}`                              | Dict of users that are allowed to use this host as SSH proxy jump host, see [User configuration](#User configuration)                    |
+| `locales`                          | `[en_US.UTF-8]`                   | List of locales to install                                                                                                               |
+| `keyboard_layout`                  | `us,de`                           | TTY keyboard layout                                                                                                                      |
+| `default_language`                 | `en_US.UTF-8`                     | Default language                                                                                                                         |
+| `apt_repository_components`        | `[main]`                          | List of apt repository versions to enable for all hosts                                                                                  |
+| `apt_repository_components_ubuntu` | `[universe]`                      | List of apt repository versions to enable only on Ubuntu hosts                                                                           |
+| `apt_repository_components_debian` | `[contrib]`                       | List of apt repository versions to enable only on Debian hosts                                                                           |
+| `common_debian_sources`            |                                   | Verbatim sources.list definition for Debian. Overrides the usual `sources.list` generation                                               |
+| `common_ubuntu_sources`            |                                   | Verbatim sources.list definition for Ubuntu. Overrides the usual `sources.list` generation                                               |
+| `common_core_packages`             | see [defaults](defaults/main.yml) | Common core packages to install (like locales or iproute2)                                                                               |
+| `common_extra_packages`            | see [defaults](defaults/main.yml) | Common extra packages to install (like less or htop)                                                                                     |
+| `common_custom_packages`           | `[]`                              | Custom packages to install, useful if you want to have some extra packages installed without copying and overriding the two lists abvove |
 
 ### User configuration
 
-Each entry in the `admins` list shall be a username (used to log in), which is a dict containing the following entries:
+Each key in the `admins` list shall be a username (used to log in), with the following dict as a value:
 
-| Name     | Mandatory / Default | Description                                                                                                           |
-|:---------|:-------------------:|:----------------------------------------------------------------------------------------------------------------------|
-| `name`   |  :heavy_check_mark: | the full name of the admin user                                                                                       |
-| `shell`  |     `/bin/bash`     | path to the shell that shall                                                                                          |
-| `keys`   |         `[]`        | list of ssh keys that allow this user to login via SSH                                                                |
-| `passwd` |                     | [hashed](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) passphrase |
+| Name            | Mandatory / Default | Description                                                                                                                                                                       |
+|:----------------|:-------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `name`          | :heavy_check_mark:  | The full name of the admin user                                                                                                                                                   |
+| `shell`         | `/bin/bash`         | Path to the shell to set for this admin (this key is ignored for `common_jumphost_users`)                                                                                         |
+| `keys`          | `[]`                | List of SSH keys that allow this user to login or proxy-jump via SSH                                                                                                              |
+| `passwd`        |                     | [hashed](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) passphrase                                                             |
+| `allowed_hosts` | `[]`                | List of hosts and ports to which the user is allowed to jump to (via the current host). The format is `{{ ip }}:{{ port }}`. This key is only parsed for `common_jumphost_users`. |
 
 ## Example Playbook
 
@@ -56,6 +58,13 @@ Each entry in the `admins` list shall be a username (used to log in), which is a
           name: Lena Mustermann
           keys:
             - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5aaaaIEFmmHsB7LgVMmujy51QfoSS9hnN7GMEm+Mkcg1YVJnn max123
+      common_jumphost_users:
+        tim:
+          name: Tim Mustermann
+          keys:
+            - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5aaaaIEFmmHsB7LgVMmujy51QfoSS9hnN7GMEm+Mkcg1YVJnn timey
+          allowed_hosts:
+            - 196.168.1.5:22
       default_language: de_DE.UTF-8
       keyboard_layout: de
       locales:

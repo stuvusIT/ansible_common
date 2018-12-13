@@ -1,35 +1,46 @@
 ---
-- name: Make sure admin group(wheel) is present
+- name: Make sure admin and SSH groups are present
   group:
-    name: wheel
-    state: present
+    name: "{{ item }}"
     system: true
-
-- name: Make sure SSH group is present
-  group:
-    name: ssh-users
-    system: true
+  loop:
+    - wheel
+    - ssh-users
 
 - name: Create admin users
   user:
     comment: "{{ item.value.name }}"
-    createhome: true
     groups: adm,dialout,users,wheel,ssh-users
-    state: present
-    system: no
     name: "{{ item.key }}"
     shell: "{{ item.value.shell|default('/bin/bash') }}"
     password: "{{ item.value.passwd|default('$6$mDFWEb5pDY$C9ZTuNjTTSyh0uIBoZALAV6isFY4dO8gBN2/xJ0yX2rejvr2wKp/wMmHwvoC.gD8NaeozxjhWvNHp3rJEJdJj1') }}"
-  with_dict: "{{ admins }}"
+  loop: "{{ admins | dict2items }}"
 
-- name: Update ssh keys for users
+- name: Create JumpHost users
+  user:
+    comment: "{{ item.value.name }}"
+    groups: ssh-users
+    name: "{{ item.key }}"
+    password_lock: true
+    shell: /usr/bin/false
+  loop: "{{ common_jumphost_users | dict2items }}"
+
+- name: Update SSH keys for admins
   authorized_key:
     exclusive: true
-    key: "{% for key in admins[item]['keys'] %}{{ key }}\n{% endfor %}"
-    state: present
-    user: "{{ item }}"
+    key: "{% for key in item.value['keys'] %}{{ key }}\n{% endfor %}"
+    user: "{{ item.key }}"
     validate_certs: true
-  with_items: "{{ admins }}"
+  loop: "{{ admins | dict2items }}"
+
+- name: Update SSH keys for JumpHost users
+  authorized_key:
+    exclusive: true
+    key: "{% for key in item.value['keys'] %}{{ key }}\n{% endfor %}"
+    user: "{{ item.key }}"
+    key_options: 'command="",restrict,port-forwarding,permitopen="{{ item.value.allowed_hosts | default([]) | join(",") }}"'
+    validate_certs: true
+  loop: "{{ common_jumphost_users | dict2items }}"
 
 - name: Grant all admin users root privilages
   lineinfile:
@@ -51,7 +62,7 @@
     mode: 0400
     owner: root
     group: root
-  with_items:
+  loop:
     - /usr/lib/nagios/plugins/check_apt
     - /usr/lib/stuvus/icinga/check_kernel
 
