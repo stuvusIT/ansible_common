@@ -62,9 +62,7 @@
     mode: 0400
     owner: root
     group: root
-  loop:
-    - /usr/lib/nagios/plugins/check_apt
-    - /usr/lib/stuvus/icinga/check_kernel
+  loop: "{{ common_allowed_nagios_sudo_paths }}"
 
 - name: Remove root's password
   lineinfile:

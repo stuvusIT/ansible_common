@@ -36,3 +36,5 @@ common_extra_packages:
   - htop
   - less
 common_custom_packages: []
+
+common_allowed_nagios_sudo_paths: []
