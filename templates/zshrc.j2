@@ -20,7 +20,7 @@ mkcd() {
 }
 
 # ZSH stuff
-export PS1="%n@%m:%~%(!.#.$) " # user@host:~/dir$
+export PS1=$'%(!.%{\e[1;31m%}%n@%m%{\e[0m%}.%{\e[0;34m%}%n@%m%{\e[0m%}):%~ %(!.#.$) ' # user@host:~/dir$ (blue for user, red for privileged)
 setopt auto_pushd # cd behaves like pushd
 setopt pushd_to_home # pushd with no arguments -> pushd $HOME
 setopt auto_param_keys # Be smarter when completing whithin parameters
