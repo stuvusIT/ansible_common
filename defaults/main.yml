@@ -29,7 +29,6 @@ common_extra_packages:
   - zsh
   - git
   - vim-nox
-  - nano
   - net-tools
   - iputils-ping
   - nfs-client
