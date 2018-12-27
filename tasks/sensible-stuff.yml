@@ -1,16 +1,15 @@
 ---
-- name: Install sensible zshrc
+- name: "Install sensible {{ item.key }} configuration"
   template:
-    src: zshrc.j2
-    dest: /etc/zsh/zshrc
+    src: "{{ item.key }}.j2"
+    dest: "{{ item.value }}"
     owner: root
     group: root
     mode: 0644
+  loop: "{{ template_paths | dict2items }}"
+  vars:
+    template_paths:
+      zshrc: /etc/zsh/zshrc
+      zshenv: /etc/zsh/zshenv
+      htoprc: /etc/htoprc
 
-- name: Install sensible htoprc
-  template:
-    src: htoprc.j2
-    dest: /etc/htoprc
-    owner: root
-    group: root
-    mode: 0644
