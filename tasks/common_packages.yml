@@ -1,13 +1,4 @@
 ---
-- name: Write the apt sources file
-  template:
-    src: sources.list.j2
-    dest: /etc/apt/sources.list
-    mode: 0644
-    owner: root
-    group: root
-  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
-
 - name: Update repositories cache
   apt:
     update_cache: yes

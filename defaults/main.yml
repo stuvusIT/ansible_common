@@ -8,12 +8,6 @@ locales:
   - en_US.UTF-8
 default_language: en_US.UTF-8
 
-apt_repository_components:
-  - main
-apt_repository_components_ubuntu:
-  - universe
-apt_repository_components_debian:
-  - contrib
 common_core_packages:
   - ctags
   - sudo
