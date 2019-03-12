@@ -43,7 +43,7 @@
     validate_certs: true
   loop: "{{ common_jumphost_users | dict2items }}"
 
-- name: Grant all admin users root privilages
+- name: Grant all admin users root privileges
   lineinfile:
     create: true
     dest: /etc/sudoers
