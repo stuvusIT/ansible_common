@@ -23,7 +23,7 @@
     groups: ssh-users
     name: "{{ item.key }}"
     password_lock: true
-    shell: /usr/bin/false
+    shell: /bin/false
   loop: "{{ common_jumphost_users | dict2items }}"
 
 - name: Update SSH keys for admins
