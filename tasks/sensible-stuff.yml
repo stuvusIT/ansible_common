@@ -1,5 +1,5 @@
 ---
-- name: "Install sensible {{ item.key }} configuration"
+- name: Instantiate sensible configuration templates
   template:
     src: "{{ item.key }}.j2"
     dest: "{{ item.value }}"
