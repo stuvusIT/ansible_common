@@ -11,4 +11,8 @@
   with_items: "{{ locales }}"
 
 - name: Set default language
-  command: 'update-locale LANG="{{ default_language }}"'
+  lineinfile:
+    path: /etc/default/locale
+    regexp: ^LANG=
+    line: 'LANG="{{ default_language }}"'
+    create: True
