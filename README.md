@@ -22,7 +22,6 @@ A Debian-based distribution.
 | `common_core_packages`             | see [defaults](defaults/main.yml) | Common core packages to install (like locales or iproute2)                                                                               |
 | `common_extra_packages`            | see [defaults](defaults/main.yml) | Common extra packages to install (like less or htop)                                                                                     |
 | `common_custom_packages`           | `[]`                              | Custom packages to install, useful if you want to have some extra packages installed without copying and overriding the two lists abvove |
-| `common_allowed_nagios_sudo_paths` | `[]`                              | Paths to executables that may be executed by nagios without a password using `sudo`.                                                     |
 
 ### User configuration
 
