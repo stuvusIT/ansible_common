@@ -43,28 +43,6 @@
     validate_certs: true
   loop: "{{ common_jumphost_users | dict2items }}"
 
-- name: Grant all admin users root privileges
-  lineinfile:
-    create: true
-    dest: /etc/sudoers
-    regexp: '^%wheel\s'
-    insertafter: 'Same thing without a password'
-    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
-    mode: 0400
-    owner: root
-    group: root
-    state: present
-
-- name: Grant nagios sudo privileges
-  lineinfile:
-    create: true
-    dest: /etc/sudoers
-    line: "nagios ALL=(root) NOPASSWD: {{ item }}"
-    mode: 0400
-    owner: root
-    group: root
-  loop: "{{ common_allowed_nagios_sudo_paths }}"
-
 - name: Remove root's password
   lineinfile:
     create: true

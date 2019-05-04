@@ -25,7 +25,6 @@ galaxy_info:
     - system
     - users
     - ssh
-    - sudo
     - packages
     - hostname
     - locale

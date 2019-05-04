@@ -10,7 +10,6 @@ default_language: en_US.UTF-8
 
 common_core_packages:
   - ctags
-  - sudo
   - openssh-server
   - kbd
   - iproute2
@@ -29,5 +28,3 @@ common_extra_packages:
   - htop
   - less
 common_custom_packages: []
-
-common_allowed_nagios_sudo_paths: []
