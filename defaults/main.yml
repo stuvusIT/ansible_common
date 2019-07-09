@@ -1,5 +1,6 @@
 ---
 common_jumphost_users: {}
+common_users: {}
 
 domain: localdomain
 

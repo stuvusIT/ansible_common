@@ -10,29 +10,38 @@
 
 - name: Create admin users
   user:
-    comment: "{{ item.value.name }}"
+    comment: "{{ item.value.name | mandatory }}"
     groups: adm,dialout,users,wheel,ssh-users,sudo
     name: "{{ item.key }}"
-    shell: "{{ item.value.shell|default('/bin/bash') }}"
-    password: "{{ item.value.passwd|default('$6$mDFWEb5pDY$C9ZTuNjTTSyh0uIBoZALAV6isFY4dO8gBN2/xJ0yX2rejvr2wKp/wMmHwvoC.gD8NaeozxjhWvNHp3rJEJdJj1') }}"
+    shell: "{{ item.value.shell | default('/bin/bash') }}"
+    password: "{{ item.value.passwd | default('$6$mDFWEb5pDY$C9ZTuNjTTSyh0uIBoZALAV6isFY4dO8gBN2/xJ0yX2rejvr2wKp/wMmHwvoC.gD8NaeozxjhWvNHp3rJEJdJj1') }}"
   loop: "{{ admins | dict2items }}"
+
+- name: Create unprivileged users
+  user:
+    comment: "{{ item.value.name | mandatory}}"
+    groups: "{{ item.value.groups | default([]) }}"
+    name: "{{ item.key }}"
+    shell: "{{ item.value.shell | default('/bin/bash') }}"
+    password: "{{ item.value.passwd | default('$6$mDFWEb5pDY$C9ZTuNjTTSyh0uIBoZALAV6isFY4dO8gBN2/xJ0yX2rejvr2wKp/wMmHwvoC.gD8NaeozxjhWvNHp3rJEJdJj1') }}"
+  loop: "{{ common_users | dict2items }}"
 
 - name: Create JumpHost users
   user:
-    comment: "{{ item.value.name }}"
+    comment: "{{ item.value.name | mandatory }}"
     groups: ssh-users
     name: "{{ item.key }}"
     password_lock: true
     shell: /bin/false
   loop: "{{ common_jumphost_users | dict2items }}"
 
-- name: Update SSH keys for admins
+- name: Update SSH keys for admins and users
   authorized_key:
     exclusive: true
     key: "{% for key in item.value['keys'] %}{{ key }}\n{% endfor %}"
     user: "{{ item.key }}"
     validate_certs: true
-  loop: "{{ admins | dict2items }}"
+  loop: "{{ admins | dict2items + common_users | dict2items }}"
 
 - name: Update SSH keys for JumpHost users
   authorized_key:

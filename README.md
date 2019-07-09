@@ -12,16 +12,17 @@ A Debian-based distribution.
 
 ## Role Variables
 
-| Name                               | Mandatory / Default               | Description                                                                                                                              |
-|:-----------------------------------|:---------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------|
-| `admins`                           | `{}`                              | Dict of admin users, see [User configuration](#User configuration)                                                                       |
-| `common_jumphost_users`            | `{}`                              | Dict of users that are allowed to use this host as SSH proxy jump host, see [User configuration](#User configuration)                    |
-| `locales`                          | `[en_US.UTF-8]`                   | List of locales to install                                                                                                               |
-| `keyboard_layout`                  | `us,de`                           | TTY keyboard layout                                                                                                                      |
-| `default_language`                 | `en_US.UTF-8`                     | Default language                                                                                                                         |
-| `common_core_packages`             | see [defaults](defaults/main.yml) | Common core packages to install (like locales or iproute2)                                                                               |
-| `common_extra_packages`            | see [defaults](defaults/main.yml) | Common extra packages to install (like less or htop)                                                                                     |
-| `common_custom_packages`           | `[]`                              | Custom packages to install, useful if you want to have some extra packages installed without copying and overriding the two lists abvove |
+| Name                     | Mandatory / Default               | Description                                                                                                                              |
+|:-------------------------|:---------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------|
+| `admins`                 | `{}`                              | Dict of admin users, see [User configuration](#User configuration)                                                                       |
+| `common_users`           | `{}`                              | Dict of normal users, see [User configuration](#User configuration)                                                                      |
+| `common_jumphost_users`  | `{}`                              | Dict of users that are allowed to use this host as SSH proxy jump host, see [User configuration](#User configuration)                    |
+| `locales`                | `[en_US.UTF-8]`                   | List of locales to install                                                                                                               |
+| `keyboard_layout`        | `us,de`                           | TTY keyboard layout                                                                                                                      |
+| `default_language`       | `en_US.UTF-8`                     | Default language                                                                                                                         |
+| `common_core_packages`   | see [defaults](defaults/main.yml) | Common core packages to install (like locales or iproute2)                                                                               |
+| `common_extra_packages`  | see [defaults](defaults/main.yml) | Common extra packages to install (like less or htop)                                                                                     |
+| `common_custom_packages` | `[]`                              | Custom packages to install, useful if you want to have some extra packages installed without copying and overriding the two lists abvove |
 
 ### User configuration
 
@@ -34,6 +35,7 @@ Each key in the `admins` list shall be a username (used to log in), with the fol
 | `keys`          | `[]`                | List of SSH keys that allow this user to login or proxy-jump via SSH                                                                                                              |
 | `passwd`        |                     | [hashed](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) passphrase                                                             |
 | `allowed_hosts` | `[]`                | List of hosts and ports to which the user is allowed to jump to (via the current host). The format is `{{ ip }}:{{ port }}`. This key is only parsed for `common_jumphost_users`. |
+| `groups`        | `[]`                | List of groups the user will be added to. Only used for `common_users`.                                                                                                           |
 
 ## Example Playbook
 
@@ -60,6 +62,12 @@ Each key in the `admins` list shall be a username (used to log in), with the fol
             - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5aaaaIEFmmHsB7LgVMmujy51QfoSS9hnN7GMEm+Mkcg1YVJnn timey
           allowed_hosts:
             - 196.168.1.5:22
+      common_users:
+        tom:
+          name: Tom Haverford
+          groups:
+            - users
+            - ssh-users
       default_language: de_DE.UTF-8
       keyboard_layout: de
       locales:
