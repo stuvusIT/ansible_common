@@ -3,16 +3,16 @@
   lineinfile:
     path: /etc/default/keyboard
     regexp: "^XKBLAYOUT="
-    line: "XKBLAYOUT={{ keyboard_layout }}"
+    line: "XKBLAYOUT={{ common_keyboard_layout }}"
 
 - name: Install locales
   locale_gen:
     name: "{{ item }}"
-  with_items: "{{ locales }}"
+  with_items: "{{ common_locales }}"
 
 - name: Set default language
   lineinfile:
     path: /etc/default/locale
     regexp: ^LANG=
-    line: 'LANG="{{ default_language }}"'
+    line: 'LANG="{{ common_default_language }}"'
     create: True
