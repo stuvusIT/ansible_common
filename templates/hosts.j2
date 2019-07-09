@@ -5,17 +5,17 @@
 # {{ ansible_managed }}
 
 # localhost
-127.0.0.1 localhost localhost.{{ domain }}
-::1 localhost localhost.{{ domain }}
+127.0.0.1 localhost localhost.{{ common_domain }}
+::1 localhost localhost.{{ common_domain }}
 
 # IPv4
 {% for addr in ansible_all_ipv4_addresses %}
-	{{- addr }} {{ inventory_hostname_short }}.{{ domain }} {{ inventory_hostname_short }}
+	{{- addr }} {{ inventory_hostname_short }}.{{ common_domain }} {{ inventory_hostname_short }}
 {% endfor %}
 
 # IPv6
 {% for addr in ansible_all_ipv6_addresses %}
-	{{- addr }} {{ inventory_hostname_short }}.{{ domain }} {{ inventory_hostname_short }}
+	{{- addr }} {{ inventory_hostname_short }}.{{ common_domain }} {{ inventory_hostname_short }}
 {% endfor %}
 # End of file
 

@@ -1,13 +1,25 @@
 ---
+common_admin_users: {}
 common_jumphost_users: {}
 common_users: {}
 
-domain: localdomain
+common_default_admin_user_groups:
+  - adm
+  - dialout
+  - users
+  - wheel
+  - ssh-users
+  - sudo
+common_default_user_groups: []
+common_default_jumphost_user_groups:
+  - ssh-users
 
-keyboard_layout: 'us,de'
-locales:
+common_domain: localdomain
+
+common_locales:
   - en_US.UTF-8
-default_language: en_US.UTF-8
+common_keyboard_layout: 'us,de'
+common_default_language: en_US.UTF-8
 
 common_core_packages:
   - ctags
