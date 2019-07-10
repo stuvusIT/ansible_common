@@ -13,6 +13,10 @@ common_default_admin_user_groups:
 common_default_user_groups: []
 common_default_jumphost_user_groups:
   - ssh-users
+common_ensure_system_groups:
+  - ssh-users
+  - wheel
+  - sudo
 
 common_domain: localdomain
 
