@@ -3,10 +3,7 @@
   group:
     name: "{{ item }}"
     system: true
-  loop:
-    - wheel
-    - ssh-users
-    - sudo
+  loop: "{{ common_ensure_system_groups }}"
 
 - name: Create admin users
   user:
