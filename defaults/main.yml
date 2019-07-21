@@ -34,9 +34,13 @@ common_core_packages:
   - dbus
   - locales
   - console-setup
+common_core_keys: []
+common_core_repos: []
 common_extra_packages:
   - man
   - zsh
+  - zsh-autosuggestions
+  - zsh-completions
   - git
   - vim-nox
   - net-tools
@@ -44,4 +48,12 @@ common_extra_packages:
   - nfs-client
   - htop
   - less
+common_extra_keys:
+  - https://download.opensuse.org/repositories/shells:zsh-users:zsh-completions/Debian_9.0/Release.key
+  - https://download.opensuse.org/repositories/shells:zsh-users:zsh-autosuggestions/Debian_9.0/Release.key
+common_extra_repos:
+  - deb http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-autosuggestions/Debian_9.0/ /
+  - deb http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/Debian_9.0/ /
 common_custom_packages: []
+common_custom_keys: []
+common_custom_repos: []
