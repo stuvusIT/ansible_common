@@ -1,4 +1,14 @@
 ---
+- name: Add repo keys
+  apt_key:
+    url: "{{ item }}"
+  loop: "{{ common_core_keys | union(common_extra_keys) | union(common_custom_keys) }}"
+
+- name: Add repos
+  apt_repository:
+    repo: "{{ item }}"
+  loop: "{{ common_core_repos | union(common_extra_repos) | union(common_custom_repos) }}"
+
 - name: Update repositories cache
   apt:
     update_cache: yes
