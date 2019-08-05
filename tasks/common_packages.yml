@@ -1,7 +1,7 @@
 ---
-- name: Install apt-transport-https
+- name: Ensure apt-transport-https is installed
   apt:
-    name: "apt-transport-https"
+    name: apt-transport-https
 
 - name: Add repo keys
   apt_key:
