@@ -1,7 +1,10 @@
 ---
-- name: Ensure apt-transport-https is installed
+- name: Ensure optional apt dependencies are installed
   apt:
-    name: apt-transport-https
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - gnupg
 
 - name: Add repo keys
   apt_key:
