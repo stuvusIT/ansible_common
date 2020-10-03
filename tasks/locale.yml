@@ -6,7 +6,7 @@
     line: "XKBLAYOUT={{ common_keyboard_layout }}"
 
 - name: Install locales
-  locale_gen:
+  community.general.locale_gen:
     name: "{{ item }}"
   with_items: "{{ common_locales }}"
 
