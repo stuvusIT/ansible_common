@@ -7,7 +7,7 @@
   tags:
     - user
 - import_tasks: hostname.yml
-- import_tasks: sensible-stuff.yml
+- import_tasks: extra_files.yml
 
 - name: Mask Ubuntu's static TTYs
   systemd:
