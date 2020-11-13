@@ -1,0 +1,9 @@
+---
+- name: Add extra files
+  template:
+    src: "{{ item.value }}"
+    dest: "{{ item.key }}"
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ common_extra_files | dict2items }}"

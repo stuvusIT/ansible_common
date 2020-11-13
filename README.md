@@ -12,41 +12,42 @@ A Debian-based distribution.
 
 ## Role Variables
 
-| Name                                  | Mandatory / Default                        | Description                                                                                                                               |
-|:--------------------------------------|:------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------|
-| `common_admin_users`                  | `{}`                                       | Dict of admin users, see [User configuration](#User configuration)                                                                        |
-| `common_users`                        | `{}`                                       | Dict of normal users, see [User configuration](#User configuration)                                                                       |
-| `common_jumphost_users`               | `{}`                                       | Dict of users that are allowed to use this host as SSH proxy jump host, see [User configuration](#User configuration)                     |
-| `common_default_admin_user_groups`    | `[adm,dialout,users,wheel,ssh-users,sudo]` | Default groups to set for admin users                                                                                                     |
-| `common_default_user_groups`          | `[]`                                       | Default groups to set for normal users                                                                                                    |
-| `common_default_jumphost_user_groups` | `[ssh-users]`                              | Default groups to set for JumpHost users                                                                                                  |
-| `common_ensure_system_groups`         | `[ssh-users,wheel,sudo]`                   | List of groups to create                                                                                                                  |
-| `common_domain`                       | `localdomain`                              | Search domain to set in `/etc/hosts`                                                                                                      |
-| `common_locales`                      | `[en_US.UTF-8]`                            | List of locales to install                                                                                                                |
-| `common_keyboard_layout`              | `us,de`                                    | TTY keyboard layout                                                                                                                       |
-| `common_default_language`             | `en_US.UTF-8`                              | Default language                                                                                                                          |
-| `common_core_packages`                | see [defaults](defaults/main.yml)          | Common core packages to install (like locales or iproute2)                                                                                |
-| `common_extra_packages`               | see [defaults](defaults/main.yml)          | Common extra packages to install (like less or htop)                                                                                      |
-| `common_custom_packages`              | `[]`                                       | Custom packages to install, useful if you want to have some extra packages installed without copying and overriding the two lists abvove  |
-| `common_core_keys`                    | `[]`                                       | Common core repo key urls to install                                                                                                      |
-| `common_extra_keys`                   | see [defaults](defaults/main.yml)          | Common extra repo key urls to install                                                                                                     |
-| `common_custom_keys`                  | `[]`                                       | Custom repo key urls to install, useful if you want to have some extra keys installed without copying and overriding the two lists abvove |
-| `common_core_repos`                   | `[]`                                       | Common core repo urls to install                                                                                                          |
-| `common_extra_repos`                  | see [defaults](defaults/main.yml)          | Common extra repo urls to install                                                                                                         |
-| `common_custom_repos`                 | `[]`                                       | Custom repo urls to install, useful if you want to have some extra repos installed without copying and overriding the two lists abvove    |
+| Name                                  |            Mandatory / Default             | Description                                                                                                                                                                 |
+| :------------------------------------ | :----------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `common_admin_users`                  |                    `{}`                    | Dict of admin users, see [User configuration](#User configuration)                                                                                                          |
+| `common_users`                        |                    `{}`                    | Dict of normal users, see [User configuration](#User configuration)                                                                                                         |
+| `common_jumphost_users`               |                    `{}`                    | Dict of users that are allowed to use this host as SSH proxy jump host, see [User configuration](#User configuration)                                                       |
+| `common_default_admin_user_groups`    | `[adm,dialout,users,wheel,ssh-users,sudo]` | Default groups to set for admin users                                                                                                                                       |
+| `common_default_user_groups`          |                    `[]`                    | Default groups to set for normal users                                                                                                                                      |
+| `common_default_jumphost_user_groups` |               `[ssh-users]`                | Default groups to set for JumpHost users                                                                                                                                    |
+| `common_ensure_system_groups`         |          `[ssh-users,wheel,sudo]`          | List of groups to create                                                                                                                                                    |
+| `common_domain`                       |               `localdomain`                | Search domain to set in `/etc/hosts`                                                                                                                                        |
+| `common_locales`                      |              `[en_US.UTF-8]`               | List of locales to install                                                                                                                                                  |
+| `common_keyboard_layout`              |                  `us,de`                   | TTY keyboard layout                                                                                                                                                         |
+| `common_default_language`             |               `en_US.UTF-8`                | Default language                                                                                                                                                            |
+| `common_core_packages`                |     see [defaults](defaults/main.yml)      | Common core packages to install (like locales or iproute2)                                                                                                                  |
+| `common_extra_packages`               |     see [defaults](defaults/main.yml)      | Common extra packages to install (like less or htop)                                                                                                                        |
+| `common_custom_packages`              |                    `[]`                    | Custom packages to install, useful if you want to have some extra packages installed without copying and overriding the two lists abvove                                    |
+| `common_core_keys`                    |                    `[]`                    | Common core repo key urls to install                                                                                                                                        |
+| `common_extra_keys`                   |     see [defaults](defaults/main.yml)      | Common extra repo key urls to install                                                                                                                                       |
+| `common_custom_keys`                  |                    `[]`                    | Custom repo key urls to install, useful if you want to have some extra keys installed without copying and overriding the two lists abvove                                   |
+| `common_core_repos`                   |                    `[]`                    | Common core repo urls to install                                                                                                                                            |
+| `common_extra_repos`                  |     see [defaults](defaults/main.yml)      | Common extra repo urls to install                                                                                                                                           |
+| `common_custom_repos`                 |                    `[]`                    | Custom repo urls to install, useful if you want to have some extra repos installed without copying and overriding the two lists abvove                                      |
+| `common_extra_files`                  |                    `{}`                    | A dict with templates for extra files to create on the machine. The key is the path of the target and the value the path of the source. The source should be a J2 template. |
 
 ### User configuration
 
 Each key in the respective users dict shall be a username (used to log in), with the following dict as a value:
 
 | Name            | Mandatory / Default | Description                                                                                                                                                                       |
-|:----------------|:-------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :-------------- | :-----------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `name`          | :heavy_check_mark:  | The full name of the admin user                                                                                                                                                   |
-| `shell`         | `/bin/bash`         | Path to the shell to set for this admin (this key is ignored for `common_jumphost_users`)                                                                                         |
-| `keys`          | `[]`                | List of SSH keys that allow this user to login or proxy-jump via SSH                                                                                                              |
+| `shell`         |     `/bin/bash`     | Path to the shell to set for this admin (this key is ignored for `common_jumphost_users`)                                                                                         |
+| `keys`          |        `[]`         | List of SSH keys that allow this user to login or proxy-jump via SSH                                                                                                              |
 | `passwd`        |                     | [hashed](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) passphrase                                                             |
-| `allowed_hosts` | `[]`                | List of hosts and ports to which the user is allowed to jump to (via the current host). The format is `{{ ip }}:{{ port }}`. This key is only parsed for `common_jumphost_users`. |
-| `groups`        | `[]`                | List of groups the user will be added to. This key overrides the default groups mentioned above (`common_default_user_groups` etc.)`.                                             |
+| `allowed_hosts` |        `[]`         | List of hosts and ports to which the user is allowed to jump to (via the current host). The format is `{{ ip }}:{{ port }}`. This key is only parsed for `common_jumphost_users`. |
+| `groups`        |        `[]`         | List of groups the user will be added to. This key overrides the default groups mentioned above (`common_default_user_groups` etc.)`.                                             |
 
 ## Example Playbook
 
@@ -88,6 +89,9 @@ Each key in the respective users dict shall be a username (used to log in), with
       common_locales:
         - de_DE.UTF-8
         - en_US.UTF-8
+      common_extra_files:
+        /etc/zsh/zshrc: zshrc.j2
+        /etc/zsh/zshenv: zshenv.j2
 ```
 
 ## License

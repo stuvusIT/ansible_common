@@ -57,3 +57,4 @@ common_extra_repos:
 common_custom_packages: []
 common_custom_keys: []
 common_custom_repos: []
+common_extra_files: {}
