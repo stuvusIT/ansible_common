@@ -8,7 +8,8 @@
 
 ## Requirements
 
-A Debian-based distribution.
+- Remotely: A Debian-based distribution.
+- Locally: Ansible 2.9 or newer with the `ansible.posix` collection installed.
 
 ## Role Variables
 
