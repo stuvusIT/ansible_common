@@ -11,15 +11,10 @@ galaxy_info:
   github_branch: master
 
   platforms:
-    - name: Ubuntu
-      versions:
-        - yakkety
-        - xenial
-        - bionic
     - name: Debian
       versions:
-        - jessie
-        - stretch
+        - buster
+        - bullseye
 
   galaxy_tags:
     - system

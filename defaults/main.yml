@@ -26,7 +26,7 @@ common_keyboard_layout: 'us,de'
 common_default_language: en_US.UTF-8
 
 common_core_packages:
-  - ctags
+  - exuberant-ctags
   - openssh-server
   - kbd
   - iproute2
