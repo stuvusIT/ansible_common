@@ -5,6 +5,7 @@
       - apt-transport-https
       - ca-certificates
       - gnupg
+    update_cache: yes
 
 - name: Add repo keys
   apt_key:
