@@ -34,16 +34,16 @@
 
 - name: Update SSH keys for admins and users
   ansible.posix.authorized_key:
-    exclusive: true
-    key: "{% for key in item.value['keys'] %}{{ key }}\n{% endfor %}"
+    exclusive: "{{ item.value.keys_exclusive | default(True) }}"
+    key: "{{ item.value.get('keys', []) | join('\n') }}"
     user: "{{ item.key }}"
     validate_certs: true
   loop: "{{ common_admin_users | dict2items + common_users | dict2items }}"
 
 - name: Update SSH keys for JumpHost users
   ansible.posix.authorized_key:
-    exclusive: true
-    key: "{% for key in item.value['keys'] %}{{ key }}\n{% endfor %}"
+    exclusive: "{{ item.value.keys_exclusive | default(True) }}"
+    key: "{{ item.value.get('keys', []) | join('\n') }}"
     user: "{{ item.key }}"
     key_options: 'command="",restrict,port-forwarding,permitopen="{{ item.value.allowed_hosts | default([]) | join(",") }}"'
     validate_certs: true
