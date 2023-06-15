@@ -1,4 +1,7 @@
 ---
+- name: Update repositories cache and accept new releaseinfo
+  shell: apt-get update --allow-releaseinfo-change
+  
 - name: Ensure optional apt dependencies are installed
   apt:
     name:
@@ -16,9 +19,6 @@
   apt_repository:
     repo: "{{ item }}"
   loop: "{{ common_core_repos | union(common_extra_repos) | union(common_custom_repos) }}"
-
-- name: Update repositories cache and accept new releaseinfo
-  shell: apt-get update --allow-releaseinfo-change
 
 - name: Install packages
   apt:
