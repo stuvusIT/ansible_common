@@ -1,9 +1,15 @@
 ---
-- name: Add extra files
-  template:
-    src: "{{ item.value }}"
-    dest: "{{ item.key }}"
-    owner: root
-    group: root
-    mode: 0644
-  loop: "{{ common_extra_files | dict2items }}"
+- name: Add extra files via copy module
+  copy: "{{ item.value | combine({ '_module': omit, 'dest': item.key }) }}"
+  loop: >-
+    {{ common_extra_files | dict2items | json_query("[?value._module=='copy']") }}
+
+- name: Add extra files via template module
+  template: "{{ item.value | combine({ '_module': omit, 'dest': item.key }) }}"
+  loop: >-
+    {{ common_extra_files | dict2items | json_query("[?value._module=='template']") }}
+
+- name: Add extra files via get_url module
+  get_url: "{{ item.value | combine({ '_module': omit, 'dest': item.key }) }}"
+  loop: >-
+    {{ common_extra_files | dict2items | json_query("[?value._module=='get_url']") }}

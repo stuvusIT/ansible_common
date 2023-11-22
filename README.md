@@ -35,7 +35,7 @@
 | `common_core_repos`                   |                    `[]`                    | Common core repo urls to install                                                                                                                                            |
 | `common_extra_repos`                  |     see [defaults](defaults/main.yml)      | Common extra repo urls to install                                                                                                                                           |
 | `common_custom_repos`                 |                    `[]`                    | Custom repo urls to install, useful if you want to have some extra repos installed without copying and overriding the two lists abvove                                      |
-| `common_extra_files`                  |                    `{}`                    | A dict with templates for extra files to create on the machine. The key is the path of the target and the value the path of the source. The source should be a J2 template. |
+| `common_extra_files`                  |                    `{}`                    | A dict with templates for extra files to create on the machine. See [#extra-files].                                                                                         |
 
 ### User configuration
 
@@ -49,6 +49,36 @@ Each key in the respective users dict shall be a username (used to log in), with
 | `passwd`        |                     | [hashed](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) passphrase                                                             |
 | `allowed_hosts` |        `[]`         | List of hosts and ports to which the user is allowed to jump to (via the current host). The format is `{{ ip }}:{{ port }}`. This key is only parsed for `common_jumphost_users`. |
 | `groups`        |        `[]`         | List of groups the user will be added to. This key overrides the default groups mentioned above (`common_default_user_groups` etc.)`.                                             |
+
+### Extra Files
+
+The dict `common_extra_files` configures extra files to create on the machine.
+Each key must be a file path on the target machine and the containing directory must already exist
+on the machine.
+The corresponding value is a dict containing an `_module` key to choose the Ansible module used to
+create the file and additional key-value pairs that will be passed to that module.
+Supported modules (for `_module`) are `copy`, `template` and `get_url`.
+Examples:
+
+```yml
+common_extra_files:
+  /etc/zsh/zshrc:
+    _module: copy
+    src: zshrc # copies the file from ./files/zshrc
+  /usr/local/bin/hello-world.sh:
+    _module: copy
+    content: |
+      #!/usr/bin/env bash
+      echo Hello, World!
+    mode: 0755
+  /etc/systemd/resolved.conf:
+    _module: template
+    src: resolved.conf.j2 # instantiates the file from ./templates/resolved.conf.j2
+  /usr/local/bin/danebot.py:
+    _module: get_url
+    url: https://raw.githubusercontent.com/stuvusIT/danebot/main/src/danebot.py
+    mode: 0755
+```
 
 ## Example Playbook
 
@@ -90,9 +120,7 @@ Each key in the respective users dict shall be a username (used to log in), with
       common_locales:
         - de_DE.UTF-8
         - en_US.UTF-8
-      common_extra_files:
-        /etc/zsh/zshrc: zshrc.j2
-        /etc/zsh/zshenv: zshenv.j2
+      # common_extra_files: # see the subsection above
 ```
 
 ## License
