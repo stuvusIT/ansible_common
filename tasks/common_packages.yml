@@ -2,23 +2,26 @@
 - name: Update repositories cache and accept new releaseinfo
   shell: apt-get update --allow-releaseinfo-change
   
-- name: Ensure optional apt dependencies are installed
+- name: Install core packages
   apt:
     name:
       - apt-transport-https
       - ca-certificates
       - gnupg
+      - console-setup
+      - kbd
+      - locales
 
 - name: Add repo keys
   apt_key:
     url: "{{ item }}"
-  loop: "{{ common_core_keys | union(common_extra_keys) | union(common_custom_keys) }}"
+  loop: "{{ common_extra_keys }}"
 
 - name: Add repos
   apt_repository:
     repo: "{{ item }}"
-  loop: "{{ common_core_repos | union(common_extra_repos) | union(common_custom_repos) }}"
+  loop: "{{ common_extra_repos }}"
 
-- name: Install packages
+- name: Install extra packages
   apt:
-    name: "{{ common_core_packages | union(common_extra_packages) | union(common_custom_packages) }}"
+    name: "{{ common_extra_packages }}"
