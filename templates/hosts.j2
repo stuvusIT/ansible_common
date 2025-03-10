@@ -1,6 +1,4 @@
 # {{ ansible_managed }}
 
-127.0.0.1 localhost
-::1 localhost
-127.0.0.1 {{ inventory_hostname_short }}
-::1 {{ inventory_hostname_short }}
+127.0.0.1 localhost {{ inventory_hostname_short }}
+::1 localhost {{ inventory_hostname_short }}
