@@ -2,30 +2,14 @@
 - import_tasks: common_packages.yml
   tags:
     - packages
+  when: "{{ not common_skip_packages }}"
+
 - import_tasks: locale.yml
+
 - import_tasks: users.yml
   tags:
     - user
+
 - import_tasks: hostname.yml
+
 - import_tasks: extra_files.yml
-
-- name: Mask Ubuntu's static TTYs
-  systemd:
-    name: getty-static.service
-    masked: yes
-
-- name: Mask getty on TTY 1
-  systemd:
-    name: getty@tty1.service
-    state: stopped
-    masked: yes
-  when: "ansible_virtualization_type == 'xen' and ansible_virtualization_role != 'host'"
-
-- name: Remove motd
-  lineinfile:
-    path: "/etc/pam.d/{{ item }}"
-    regexp: "^session\\s+optional\\s+pam_motd\\.so"
-    state: absent
-  with_items:
-    - login
-    - sshd

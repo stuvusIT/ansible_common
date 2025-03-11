@@ -1,21 +1,4 @@
-#
-# /etc/hosts: static lookup table for host names
-#
-
 # {{ ansible_managed }}
 
-# localhost
-127.0.0.1 localhost localhost.{{ common_domain }}
-::1 localhost localhost.{{ common_domain }}
-
-# IPv4
-{% for addr in ansible_all_ipv4_addresses %}
-	{{- addr }} {{ inventory_hostname_short }}.{{ common_domain }} {{ inventory_hostname_short }}
-{% endfor %}
-
-# IPv6
-{% for addr in ansible_all_ipv6_addresses %}
-	{{- addr }} {{ inventory_hostname_short }}.{{ common_domain }} {{ inventory_hostname_short }}
-{% endfor %}
-# End of file
-
+127.0.0.1 localhost {{ inventory_hostname_short }}
+::1 localhost {{ inventory_hostname_short }}

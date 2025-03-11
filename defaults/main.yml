@@ -6,55 +6,24 @@ common_users: {}
 common_default_admin_user_groups:
   - adm
   - dialout
-  - users
-  - wheel
   - ssh-users
   - sudo
+  - wheel
 common_default_user_groups: []
 common_default_jumphost_user_groups:
   - ssh-users
 common_ensure_system_groups:
   - ssh-users
-  - wheel
   - sudo
-
-common_domain: localdomain
+  - wheel
 
 common_locales:
   - en_US.UTF-8
 common_keyboard_layout: 'us,de'
 common_default_language: en_US.UTF-8
 
-common_core_packages:
-  - exuberant-ctags
-  - openssh-server
-  - kbd
-  - iproute2
-  - psmisc
-  - dbus
-  - locales
-  - console-setup
-common_core_keys: []
-common_core_repos: []
-common_extra_packages:
-  - man
-  - zsh
-  - zsh-autosuggestions
-  - zsh-completions
-  - git
-  - vim-nox
-  - net-tools
-  - iputils-ping
-  - nfs-client
-  - htop
-  - less
-common_extra_keys:
-  - https://download.opensuse.org/repositories/shells:zsh-users:zsh-completions/Debian_9.0/Release.key
-  - https://download.opensuse.org/repositories/shells:zsh-users:zsh-autosuggestions/Debian_9.0/Release.key
-common_extra_repos:
-  - deb http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-autosuggestions/Debian_9.0/ /
-  - deb http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/Debian_9.0/ /
-common_custom_packages: []
-common_custom_keys: []
-common_custom_repos: []
+common_skip_packages: False
+common_extra_packages: []
+common_extra_keys: []
+common_extra_repos: []
 common_extra_files: {}
